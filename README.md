@@ -422,3 +422,40 @@ npm run build
 **最後更新**：2025 年 1 月
 
 **維護者**：易潔寶開發團隊
+
+## 🖼️ 圖片管理
+
+由於專案原本在 Manus 平台開發，圖片託管在遠程服務器。本地開發時有兩種方式處理圖片：
+
+### 方法 1：使用代理（推薦用於開發）
+
+已在 `vite.config.ts` 配置好圖片代理，開發時自動從 Manus 加載圖片：
+
+```bash
+npm run dev
+```
+
+圖片會自動從 `https://yijiebao-djcf4hqc.manus.space` 加載，無需下載！
+
+### 方法 2：下載圖片到本地（推薦用於生產）
+
+```bash
+# 自動下載所有圖片
+npm run download-images
+
+# 或手動下載
+# 訪問 https://www.178mat.com/
+# 保存圖片到 public/images/ 目錄
+```
+
+### 詳細說明
+
+完整的圖片管理指南請參考：[`docs/IMAGE_MANAGEMENT.md`](./docs/IMAGE_MANAGEMENT.md)
+
+包含：
+- 3 種圖片解決方案對比
+- 自動下載腳本使用方法
+- 圖片更新流程
+- 常見問題排查
+- 最佳實踐建議
+
