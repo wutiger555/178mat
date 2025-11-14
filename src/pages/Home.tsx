@@ -19,6 +19,7 @@ import {
 import TaiwanMapStats from "@/components/TaiwanMapStats";
 import TaiwanMapVisualization from "@/components/TaiwanMapVisualization";
 import TaiwanMapChoropleth from "@/components/TaiwanMapChoropleth";
+import Logo from "@/components/Logo";
 
 const heroSlides = [
   {
@@ -192,6 +193,14 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
+              <motion.div
+                className="mb-6"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <Logo variant="hero" className="drop-shadow-2xl" />
+              </motion.div>
               <Badge className="mb-4 bg-primary/90 hover:bg-primary">
                 台灣製造 · 專業服務
               </Badge>

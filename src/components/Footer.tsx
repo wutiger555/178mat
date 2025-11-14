@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ArrowRight } from "lucide-react";
-import { APP_TITLE } from "@/const";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -81,18 +81,12 @@ export default function Footer() {
         >
           {/* 公司資訊 */}
           <motion.div variants={itemVariants}>
-            <div className="flex items-center gap-3 mb-6">
-              <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center font-bold text-xl text-white shadow-md"
-                whileHover={{ scale: 1.05 }}
-              >
-                易
-              </motion.div>
-              <div>
-                <div className="text-lg font-bold text-foreground">{APP_TITLE}</div>
-                <div className="text-xs text-muted-foreground font-medium">SINCE 2002</div>
-              </div>
-            </div>
+            <motion.div
+              className="mb-6"
+              whileHover={{ scale: 1.02 }}
+            >
+              <Logo variant="footer" />
+            </motion.div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
               台灣專業除泥地墊專家，提供嵌入式、表面式、排水式、坑槽式等完整解決方案。
             </p>
@@ -183,7 +177,7 @@ export default function Footer() {
           transition={{ delay: 0.4 }}
         >
           <div className="text-sm text-muted-foreground">
-            © {currentYear} {APP_TITLE}. All rights reserved. | 台灣製造 · 專業服務
+            © {currentYear} 易潔寶. All rights reserved. | 台灣製造 · 專業服務
           </div>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">

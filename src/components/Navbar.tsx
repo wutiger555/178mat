@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone, MapPin } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { APP_TITLE } from "@/const";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,24 +35,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/">
             <motion.div
-              className="flex items-center gap-3 cursor-pointer group"
-              whileHover={{ x: 4 }}
+              className="flex items-center cursor-pointer group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center font-bold text-xl text-white shadow-md"
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                易
-              </motion.div>
-              <div>
-                <div className="text-lg font-bold text-foreground tracking-tight">
-                  {APP_TITLE}
-                </div>
-                <div className="text-xs text-muted-foreground font-medium">
-                  SINCE 2002
-                </div>
-              </div>
+              <Logo variant="nav" />
             </motion.div>
           </Link>
 
