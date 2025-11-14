@@ -1,0 +1,197 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台北",
+        "region": "北部",
+        "count": 45
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.4, 25.2], [121.7, 25.2], [121.7, 25.0], [121.4, 25.0], [121.4, 25.2]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "新北",
+        "region": "北部",
+        "count": 38
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.0, 25.3], [121.4, 25.3], [121.4, 24.9], [121.0, 24.9], [121.0, 25.3]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "桃園",
+        "region": "北部",
+        "count": 28
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.6, 25.0], [121.0, 25.0], [121.0, 24.5], [120.6, 24.5], [120.6, 25.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "新竹",
+        "region": "北部",
+        "count": 15
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.5, 24.5], [120.9, 24.5], [120.9, 24.0], [120.5, 24.0], [120.5, 24.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "苗栗",
+        "region": "中部",
+        "count": 8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.4, 24.4], [120.8, 24.4], [120.8, 23.8], [120.4, 23.8], [120.4, 24.4]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台中",
+        "region": "中部",
+        "count": 52
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.3, 24.3], [120.8, 24.3], [120.8, 23.4], [120.3, 23.4], [120.3, 24.3]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "彰化",
+        "region": "中部",
+        "count": 12
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.3, 23.8], [120.7, 23.8], [120.7, 23.4], [120.3, 23.4], [120.3, 23.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "南投",
+        "region": "中部",
+        "count": 5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.6, 23.8], [121.0, 23.8], [121.0, 23.2], [120.6, 23.2], [120.6, 23.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "雲林",
+        "region": "南部",
+        "count": 6
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.2, 23.7], [120.6, 23.7], [120.6, 23.2], [120.2, 23.2], [120.2, 23.7]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "嘉義",
+        "region": "南部",
+        "count": 8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.2, 23.4], [120.6, 23.4], [120.6, 22.8], [120.2, 22.8], [120.2, 23.4]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台南",
+        "region": "南部",
+        "count": 18
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.1, 23.2], [120.5, 23.2], [120.5, 22.4], [120.1, 22.4], [120.1, 23.2]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "高雄",
+        "region": "南部",
+        "count": 42
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.2, 22.8], [120.6, 22.8], [120.6, 22.0], [120.2, 22.0], [120.2, 22.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "屏東",
+        "region": "南部",
+        "count": 10
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[120.3, 22.5], [120.7, 22.5], [120.7, 21.8], [120.3, 21.8], [120.3, 22.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "宜蘭",
+        "region": "東部",
+        "count": 7
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.7, 24.9], [122.0, 24.9], [122.0, 24.4], [121.7, 24.4], [121.7, 24.9]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "花蓮",
+        "region": "東部",
+        "count": 4
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.7, 24.4], [122.0, 24.4], [122.0, 23.5], [121.7, 23.5], [121.7, 24.4]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台東",
+        "region": "東部",
+        "count": 3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[121.7, 23.5], [122.0, 23.5], [122.0, 22.3], [121.7, 22.3], [121.7, 23.5]]]
+      }
+    }
+  ]
+}
