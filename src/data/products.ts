@@ -24,7 +24,7 @@ export const products: Product[] = [
     name: "波羅紋毯面 - 灰色",
     category: "面料",
     description: "經典波羅紋設計，優異的除泥效果，耐用且易於清潔。灰色款式適合各種建築風格。",
-    image: getImagePath("images/hero-mat-1.jpg",
+    image: getImagePath("images/hero-mat-1.jpg"),
     specifications: {
       material: "高密度聚丙烯纖維",
       thickness: "約 12mm",
@@ -45,7 +45,7 @@ export const products: Product[] = [
     name: "波羅紋毯面 - 黑色",
     category: "面料",
     description: "經典黑色波羅紋毯面，展現專業質感，適合高級商業空間使用。",
-    image: getImagePath("images/hero-mat-2.jpg",
+    image: getImagePath("images/hero-mat-2.jpg"),
     specifications: {
       material: "高密度聚丙烯纖維",
       thickness: "約 12mm",
@@ -66,7 +66,7 @@ export const products: Product[] = [
     name: "波羅紋毯面 - 棕色",
     category: "面料",
     description: "溫暖的棕色調，營造溫馨氛圍，適合住宅與教會等場所。",
-    image: getImagePath("images/hero-mat-3.jpg",
+    image: getImagePath("images/hero-mat-3.jpg"),
     specifications: {
       material: "高密度聚丙烯纖維",
       thickness: "約 12mm",
@@ -87,7 +87,7 @@ export const products: Product[] = [
     name: "波羅紋毯面 - 多色搭配",
     category: "面料",
     description: "客製化多色搭配，可依據企業識別色或設計需求調整，展現獨特品牌形象。",
-    image: getImagePath("images/hero-mat-1.jpg",
+    image: getImagePath("images/hero-mat-1.jpg"),
     specifications: {
       material: "高密度聚丙烯纖維",
       thickness: "約 12mm",
@@ -108,7 +108,7 @@ export const products: Product[] = [
     name: "止滑膠條",
     category: "面料",
     description: "高強度橡膠材質，提供優異的止滑效果，適合多雨地區使用。",
-    image: getImagePath("images/hero-mat-2.jpg",
+    image: getImagePath("images/hero-mat-2.jpg"),
     specifications: {
       material: "高強度橡膠",
       thickness: "約 8mm",
@@ -129,7 +129,7 @@ export const products: Product[] = [
     name: "毛刷條",
     category: "面料",
     description: "尼龍毛刷設計，有效刮除鞋底泥沙，可與其他材料組合使用。",
-    image: getImagePath("images/hero-mat-3.jpg",
+    image: getImagePath("images/hero-mat-3.jpg"),
     specifications: {
       material: "尼龍刷毛",
       thickness: "約 10mm",
@@ -152,7 +152,7 @@ export const products: Product[] = [
     name: "AL-620 鋁合金框",
     category: "收邊框",
     description: "經典AL-620型號，易潔寶自有品牌鋁合金收邊框，適用於各種嵌入式地墊。",
-    image: getImagePath("images/hero-mat-1.jpg",
+    image: getImagePath("images/hero-mat-1.jpg"),
     specifications: {
       material: "陽極處理鋁合金",
       thickness: "2.0mm",
@@ -173,7 +173,7 @@ export const products: Product[] = [
     name: "不鏽鋼收邊框",
     category: "收邊框",
     description: "高級不鏽鋼材質，適合高級商業空間，展現專業質感。",
-    image: getImagePath("images/hero-mat-2.jpg",
+    image: getImagePath("images/hero-mat-2.jpg"),
     specifications: {
       material: "304不鏽鋼",
       thickness: "2.0mm",
@@ -194,7 +194,7 @@ export const products: Product[] = [
     name: "1字型扁鋁框",
     category: "收邊框",
     description: "簡約設計的扁平鋁框，適合現代極簡風格建築。",
-    image: getImagePath("images/hero-mat-3.jpg",
+    image: getImagePath("images/hero-mat-3.jpg"),
     specifications: {
       material: "陽極處理鋁合金",
       thickness: "1.5mm",
@@ -215,7 +215,7 @@ export const products: Product[] = [
     name: "平鋪立地5cm斜鋁框",
     category: "收邊框",
     description: "專為表面式地墊設計的斜角鋁框，提供平順的過渡效果。",
-    image: getImagePath("images/hero-mat-1.jpg",
+    image: getImagePath("images/hero-mat-1.jpg"),
     specifications: {
       material: "陽極處理鋁合金",
       thickness: "2.0mm",
@@ -238,7 +238,7 @@ export const products: Product[] = [
     name: "嵌入式地墊系統",
     category: "完整系統",
     description: "完整的嵌入式地墊解決方案，包含鋁框、面料、安裝服務。",
-    image: getImagePath("images/hero-mat-2.jpg",
+    image: getImagePath("images/hero-mat-2.jpg"),
     specifications: {
       material: "鋁合金框 + 波羅紋毯面",
       thickness: "依現場需求",
@@ -260,7 +260,7 @@ export const products: Product[] = [
     name: "排水式地墊系統",
     category: "完整系統",
     description: "專業排水系統設計，包含導水溝、排水管、地墊組合。",
-    image: getImagePath("images/hero-mat-3.jpg",
+    image: getImagePath("images/hero-mat-3.jpg"),
     specifications: {
       material: "鋁框 + 面料 + 排水系統",
       thickness: "依現場需求",
