@@ -1,3 +1,5 @@
+import { getImagePath } from '@/utils/paths';
+
 export interface Project {
   id: string;
   title: string;
@@ -65,7 +67,7 @@ export const projects: Project[] = [
     city: "台中",
     district: "大里區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg", "/images/hero-mat-2.jpg", "/images/hero-mat-3.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg", getImagePath("images/hero-mat-2.jpg", getImagePath("images/hero-mat-3.jpg"],
     description: "台中市大里區大型造鎮案，鄰近健民路，採用嵌入式刮泥墊設計，地面材質為抿石子，配合導水溝排水系統。使用波羅紋毯面與止滑膠條組合，提供優異的除泥與防滑效果。",
     youtubeVideoIds: ["dDw47aMuScw", "gH4iJ5kL6mN"],
     tags: {
@@ -92,7 +94,7 @@ export const projects: Project[] = [
     city: "高雄",
     district: "前鎮區",
     year: 2024,
-    images: ["/images/hero-mat-2.jpg", "/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg", getImagePath("images/hero-mat-1.jpg"],
     description: "高雄前鎮區商辦大樓入口，採用排水式地墊設計，有效處理雨天積水問題。使用不鏽鋼收邊框搭配波羅紋毯面灰色，展現專業與現代感。",
     youtubeVideoIds: ["kL9pM2xQ8vE", "xY1zAb2cD3eF"],
     tags: {
@@ -119,7 +121,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "信義區",
     year: 2024,
-    images: ["/images/hero-mat-3.jpg", "/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-3.jpg", getImagePath("images/hero-mat-1.jpg"],
     description: "台北信義區五星級飯店大廳入口，採用客製化設計，使用波羅紋毯面多色搭配，展現高級質感。配合隱藏式地鉸鏈設計，完美融入整體空間。",
     youtubeVideoIds: ["dDw47aMuScw"],
     tags: {
@@ -146,7 +148,7 @@ export const projects: Project[] = [
     city: "桃園",
     district: "中壢區",
     year: 2023,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "桃園中壢區國小校門入口，考量學童安全，採用止滑膠條與毛刷條組合，提供優異的防滑效果。使用平鋪式設計，方便日後維護。",
     youtubeVideoIds: ["kL9pM2xQ8vE"],
     tags: {
@@ -173,7 +175,7 @@ export const projects: Project[] = [
     city: "台南",
     district: "安平區",
     year: 2023,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "台南安平區海鮮餐廳入口，考量餐廳環境需求，採用廚房防滑設計，使用橡膠止滑條搭配導水溝，有效防止滑倒並快速排水。",
     youtubeVideoIds: ["pQ7rS8tU9vW"],
     tags: {
@@ -200,7 +202,7 @@ export const projects: Project[] = [
     city: "南投",
     district: "信義鄉",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg", "/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg", getImagePath("images/hero-mat-2.jpg"],
     description: "玉山塔塔加遊客中心地墊更新案例，採用止滑膠條與舊毯換新服務，提升遊客安全與視覺質感。",
     youtubeVideoIds: ["oP8qR9sT0uV"],
     tags: {
@@ -227,7 +229,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "北投區",
     year: 2024,
-    images: ["/images/hero-mat-3.jpg"],
+    images: [getImagePath("images/hero-mat-3.jpg"],
     description: "北投奇岩重劃區高綠覆率、低密度開發住宅案，採用嵌入式刮泥墊，提供優質的出入口體驗。",
     youtubeVideoIds: ["dDw47aMuScw"],
     tags: {
@@ -254,7 +256,7 @@ export const projects: Project[] = [
     city: "新竹",
     district: "東區",
     year: 2024,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "新竹科技園區辦公大樓入口，採用嵌入式刮泥墊設計，配合導水溝排水系統，提供專業的出入口解決方案。",
     youtubeVideoIds: ["dDw47aMuScw", "kL9pM2xQ8vE"],
     tags: {
@@ -281,7 +283,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "中山區",
     year: 2023,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "台北醫院大廳入口，考量醫療環境衛生需求，採用止滑膠條與導水溝設計，確保患者與訪客的安全。",
     youtubeVideoIds: ["pQ7rS8tU9vW"],
     tags: {
@@ -308,7 +310,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "信義區",
     year: 2023,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "台北知名百貨公司大門入口，採用客製化設計，使用波羅紋毯面多色搭配，展現高級商業形象。",
     youtubeVideoIds: ["dDw47aMuScw"],
     tags: {
@@ -336,7 +338,7 @@ export const projects: Project[] = [
     city: "台中",
     district: "大里區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg", "/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg", getImagePath("images/hero-mat-2.jpg"],
     description: "台中市大里區大型造鎮案，鄰近健民路生活圈。住宅大廈入口採用止滑膠條地墊，提供安全舒適的進出體驗。",
     youtubeVideoIds: ["gH4iJ5kL6mN"],
     tags: {
@@ -363,7 +365,7 @@ export const projects: Project[] = [
     city: "南投",
     district: "信義鄉",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "玉山塔塔加遊客中心地墊更新案例，採用止滑膠條與舊毯換新服務，提升遊客安全與視覺質感。",
     youtubeVideoIds: ["oP8qR9sT0uV"],
     tags: {
@@ -390,7 +392,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "北投區",
     year: 2025,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "北投奇岩重劃區高綠覆率、低密度開發住宅大廈。採用嵌入式刮泥墊搭配導水溝設計，提供防水與除泥功能。",
     tags: {
       buildingType: ["住宅大廈"],
@@ -416,7 +418,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "南港區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "台北南港廠辦風除室設計，採用荷蘭毯浪花紋黑色地墊，搭配退縮收邊框設計，提升專業形象。",
     tags: {
       buildingType: ["廠辦"],
@@ -442,7 +444,7 @@ export const projects: Project[] = [
     city: "彰化",
     district: "北斗鎮",
     year: 2025,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "北斗科學工業園區廠辦入口採用梯形造型設計，使用荷蘭毯浪花紋黑色地墊，展現現代工業風格。",
     tags: {
       buildingType: ["廠辦"],
@@ -468,7 +470,7 @@ export const projects: Project[] = [
     city: "台北",
     district: "中山區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "台北大直商辦採用荷蘭毯浪花紋灰色地墊，提供專業商務空間的視覺質感與功能性。",
     tags: {
       buildingType: ["廠辦"],

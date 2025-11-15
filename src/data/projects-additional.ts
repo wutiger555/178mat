@@ -4,6 +4,7 @@
  */
 
 import { Project } from './projects';
+import { getImagePath } from '@/utils/paths';
 
 export const additionalProjects: Project[] = [
   {
@@ -13,7 +14,7 @@ export const additionalProjects: Project[] = [
     city: "台中",
     district: "大里區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg", "/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg", getImagePath("images/hero-mat-2.jpg"],
     description: "台中市大里區大型造鎮案，鄰近健民路生活圈。住宅大廈入口採用止滑膠條地墊，提供安全舒適的進出體驗。",
     youtubeVideoIds: ["gH4iJ5kL6mN"],
     tags: {
@@ -40,7 +41,7 @@ export const additionalProjects: Project[] = [
     city: "南投",
     district: "信義鄉",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "玉山塔塔加遊客中心地墊更新案例，採用止滑膠條與舊毯換新服務，提升遊客安全與視覺質感。",
     youtubeVideoIds: ["oP8qR9sT0uV"],
     tags: {
@@ -67,7 +68,7 @@ export const additionalProjects: Project[] = [
     city: "台北",
     district: "北投區",
     year: 2025,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "北投奇岩重劃區高綠覆率、低密度開發住宅大廈。採用嵌入式刮泥墊搭配導水溝設計，提供防水與除泥功能。",
     tags: {
       buildingType: ["住宅大廈"],
@@ -93,7 +94,7 @@ export const additionalProjects: Project[] = [
     city: "台北",
     district: "南港區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "台北南港廠辦風除室設計，採用荷蘭毯浪花紋黑色地墊，搭配退縮收邊框設計，提升專業形象。",
     tags: {
       buildingType: ["廠辦"],
@@ -119,7 +120,7 @@ export const additionalProjects: Project[] = [
     city: "彰化",
     district: "北斗鎮",
     year: 2025,
-    images: ["/images/hero-mat-2.jpg"],
+    images: [getImagePath("images/hero-mat-2.jpg"],
     description: "北斗科學工業園區廠辦入口採用梯形造型設計，使用荷蘭毯浪花紋黑色地墊，展現現代工業風格。",
     tags: {
       buildingType: ["廠辦"],
@@ -145,7 +146,7 @@ export const additionalProjects: Project[] = [
     city: "台北",
     district: "中山區",
     year: 2025,
-    images: ["/images/hero-mat-1.jpg"],
+    images: [getImagePath("images/hero-mat-1.jpg"],
     description: "台北大直商辦採用荷蘭毯浪花紋灰色地墊，提供專業商務空間的視覺質感與功能性。",
     tags: {
       buildingType: ["廠辦"],

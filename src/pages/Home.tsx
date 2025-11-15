@@ -26,22 +26,23 @@ import TaiwanMapVisualization from "@/components/TaiwanMapVisualization";
 import TaiwanMapChoropleth from "@/components/TaiwanMapChoropleth";
 import Logo from "@/components/Logo";
 import SEO from "@/components/SEO";
+import { getImagePath } from '@/utils/paths';
 
 const heroSlides = [
   {
-    image: "/images/hero-mat-1.jpg",
+    image: getImagePath("images/hero-mat-1.jpg"),
     title: "專業除泥地墊專家",
     subtitle: "台灣製造，專業服務，SINCE 2002",
     description: "專營台灣主要出入口之除泥地墊，包括嵌入式、表面式、排水式、坑槽式之材料、安裝、施工",
   },
   {
-    image: "/images/hero-mat-2.jpg",
+    image: getImagePath("images/hero-mat-2.jpg"),
     title: "全台服務實績",
     subtitle: "超過1000個成功案例",
     description: "從住宅大廈到公共建築，我們的專業獲得各界肯定",
   },
   {
-    image: "/images/hero-mat-3.jpg",
+    image: getImagePath("images/hero-mat-3.jpg"),
     title: "客製化設計服務",
     subtitle: "滿足您的獨特需求",
     description: "提供多樣化面料、收邊框與完整系統解決方案",

@@ -5,6 +5,7 @@ import { Building2, Hammer, Droplets, Wrench, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { fadeInUp, scaleIn } from '@/lib/animations';
 import { gsap } from 'gsap';
+import { getImagePath } from '@/utils/paths';
 
 interface Service {
   icon: any;
@@ -24,7 +25,7 @@ const services: Service[] = [
     subtitle: 'Embedded Mat System',
     description: '適用於新建案與改建工程，完美嵌入地面，美觀耐用。適合大樓、商辦、公共建築等高端場所。',
     features: ['地磚硬底施工', '抿石子地面適用', '鋁合金收邊框', '客製化尺寸'],
-    image: '/images/hero-mat-1.jpg',
+    image: getImagePath('images/hero-mat-1.jpg'),
     color: '#B8382D',
     link: '/services#embedded',
   },
@@ -34,7 +35,7 @@ const services: Service[] = [
     subtitle: 'Drainage Mat System',
     description: '專業排水設計，有效處理雨天積水問題。適合戶外出入口、風除室等易積水區域。',
     features: ['導水溝設計', '預埋排水管', '加深高架地墊', '快速排水'],
-    image: '/images/hero-mat-2.jpg',
+    image: getImagePath('images/hero-mat-2.jpg'),
     color: '#2D9D5F',
     link: '/services#drainage',
   },
@@ -44,7 +45,7 @@ const services: Service[] = [
     subtitle: 'Surface Mat System',
     description: '快速安裝，無需破壞地面，適合租賃場所。經濟實惠，可隨時更換升級。',
     features: ['快速安裝', '無需破壞地面', '可隨時更換', '經濟實惠'],
-    image: '/images/hero-mat-3.jpg',
+    image: getImagePath('images/hero-mat-3.jpg'),
     color: '#D4AF37',
     link: '/services#surface',
   },
@@ -54,7 +55,7 @@ const services: Service[] = [
     subtitle: 'Professional Installation',
     description: '20年以上施工經驗，專業團隊提供完整的測量、設計、施工與售後服務。',
     features: ['專業團隊', '完整規劃', '品質保證', '售後服務'],
-    image: '/images/hero-mat-1.jpg',
+    image: getImagePath('images/hero-mat-1.jpg'),
     color: '#4A4A4A',
     link: '/services',
   },
