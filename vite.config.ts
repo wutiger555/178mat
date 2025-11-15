@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', // GitHub Pages 會自動處理路徑，使用根路徑
+  base: '/178mat/', // GitHub Pages 部署路徑
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
