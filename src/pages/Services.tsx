@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
+import { getImagePath } from '@/utils/paths';
 
 export default function Services() {
   const mainServices = [
@@ -170,7 +171,7 @@ export default function Services() {
                   <Card className="overflow-hidden">
                     <div className="aspect-[4/3]">
                       <img
-                        src={`/images/hero-mat-${(index % 3) + 1}.jpg`}
+                        src={getImagePath(`images/hero-mat-${(index % 3) + 1}.jpg`)}
                         alt={service.title}
                         className="w-full h-full object-cover"
                       />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { getImagePath } from '@/utils/paths';
 
 interface LogoProps {
   variant?: 'default' | 'nav' | 'footer' | 'hero';
@@ -18,23 +19,23 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
   const variants = {
     default: {
       size: 'h-32 w-32',
-      src: '/images/logo-200.png',
-      srcSet: '/images/logo-200.png 1x, /images/logo@2x.png 2x',
+      src: getImagePath('images/logo-200.png'),
+      srcSet: `${getImagePath('images/logo-200.png')} 1x, ${getImagePath('images/logo@2x.png')} 2x`,
     },
     nav: {
       size: 'h-10 w-auto md:h-12',
-      src: '/images/logo-nav.png',
-      srcSet: '/images/logo-nav.png 1x, /images/logo-200.png 2x',
+      src: getImagePath('images/logo-nav.png'),
+      srcSet: `${getImagePath('images/logo-nav.png')} 1x, ${getImagePath('images/logo-200.png')} 2x`,
     },
     footer: {
       size: 'h-24 w-24 md:h-28 md:w-28',
-      src: '/images/logo-200.png',
-      srcSet: '/images/logo-200.png 1x, /images/logo@2x.png 2x',
+      src: getImagePath('images/logo-200.png'),
+      srcSet: `${getImagePath('images/logo-200.png')} 1x, ${getImagePath('images/logo@2x.png')} 2x`,
     },
     hero: {
       size: 'h-48 w-48 md:h-64 md:w-64 lg:h-80 lg:w-80',
-      src: '/images/logo@2x.png',
-      srcSet: '/images/logo@2x.png 1x, /images/logo.png 2x',
+      src: getImagePath('images/logo@2x.png'),
+      srcSet: `${getImagePath('images/logo@2x.png')} 1x, ${getImagePath('images/logo.png')} 2x`,
     },
   };
 

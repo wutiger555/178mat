@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Target, TrendingUp, Users } from "lucide-react";
+import { getImagePath } from '@/utils/paths';
 
 export default function About() {
   return (
@@ -45,7 +46,7 @@ export default function About() {
             <div className="relative">
               <div className="aspect-[4/3] rounded-lg overflow-hidden">
                 <img
-                  src="/images/hero-mat-3.jpg"
+                  src={getImagePath("images/hero-mat-3.jpg")}
                   alt="易潔寶專業團隊"
                   className="w-full h-full object-cover"
                 />
