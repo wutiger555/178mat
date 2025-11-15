@@ -4,7 +4,6 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -17,9 +16,9 @@ import Contact from "./pages/Contact";
 
 function Router() {
   return (
-    <SmoothScrollProvider>
+    <>
       <Navbar />
-      <main className="pt-0">
+      <main className="pt-20">
         <Switch>
           <Route path={"/"} component={Home} />
           <Route path={"/about"} component={About} />
@@ -34,7 +33,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
-    </SmoothScrollProvider>
+    </>
   );
 }
 
