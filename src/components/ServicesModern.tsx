@@ -127,7 +127,7 @@ export default function ServicesModern() {
     <section
       id="services-section"
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-gradient-to-b from-background via-gray-50 to-background overflow-hidden"
+      className="relative py-24 md:py-32 bg-white overflow-hidden"
     >
       {/* 背景裝飾 */}
       <div className="absolute inset-0 opacity-5">
@@ -167,7 +167,7 @@ export default function ServicesModern() {
             return (
               <div
                 key={index}
-                ref={(el) => (cardsRef.current[index] = el)}
+                ref={(el) => { cardsRef.current[index] = el; }}
                 className="group relative will-change-transform"
                 style={{
                   transformStyle: 'preserve-3d',

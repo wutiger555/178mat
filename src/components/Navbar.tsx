@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
@@ -8,6 +8,15 @@ import Logo from "@/components/Logo";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { href: "/", label: "首頁" },
@@ -23,9 +32,15 @@ export default function Navbar() {
     return location.startsWith(href);
   };
 
+  const isHomePage = location === "/";
+  const navbarBg = isScrolled || !isHomePage
+    ? "bg-white/95 backdrop-blur-md border-b border-border/50 shadow-sm"
+    : "bg-transparent border-b border-white/10";
+  const textColor = isScrolled || !isHomePage ? "text-foreground" : "text-white";
+
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navbarBg}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -56,8 +71,8 @@ export default function Navbar() {
                   <motion.span
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all relative ${
                       isActive(item.href)
-                        ? "text-primary"
-                        : "text-foreground/70 hover:text-foreground"
+                        ? "text-brand-red"
+                        : `${textColor} opacity-80 hover:opacity-100`
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
