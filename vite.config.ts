@@ -5,6 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/', // GitHub Pages 會自動處理路徑，使用根路徑
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -14,16 +15,14 @@ export default defineConfig({
     port: 3000,
     host: true,
     open: true,
-    // 圖片代理配置 - 開發時從 Manus 或原網站載入圖片
-    proxy: {
-      '/images': {
-        target: 'https://yijiebao-djcf4hqc.manus.space',
-        changeOrigin: true,
-        secure: false,
-        // 如果 Manus 無法訪問，可以改為原網站：
-        // target: 'https://www.178mat.com',
-      },
-    },
+    // 圖片代理配置已停用 - 現在使用本地 public/images 資料夾中的圖片
+    // proxy: {
+    //   '/images': {
+    //     target: 'https://yijiebao-djcf4hqc.manus.space',
+    //     changeOrigin: true,
+    //     secure: false,
+    //   },
+    // },
   },
   build: {
     outDir: 'dist',

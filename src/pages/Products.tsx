@@ -16,9 +16,8 @@ export default function Products() {
       : products.filter((product) => product.category === selectedCategory);
 
   const handleDownloadDWG = () => {
-    toast.info("DWG圖檔下載功能", {
-      description: "請聯絡我們取得完整的DWG圖檔資料",
-    });
+    // 開啟 Google Drive 資料夾
+    window.open("https://drive.google.com/drive/folders/0B-vtvDXp7iVQNkN5REthbFpCc0U?resourcekey=0-zUjBecW9sVt6bk5cgv7Ksw", "_blank");
   };
 
   return (

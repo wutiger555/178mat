@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,48 +40,16 @@ export default function Navbar() {
     }`}>
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo 區域 - 改善設計 */}
+          {/* Logo 區域 - 使用完整 Logo */}
           <Link href="/">
             <motion.div
-              className="flex items-center gap-4 cursor-pointer group"
-              whileHover={{ scale: 1.02 }}
+              className="cursor-pointer group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              {/* Logo 圖片容器 */}
-              <div className="relative">
-                {/* 背景光環效果 */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-brand-red/20 to-brand-gold/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                {/* Logo 圖片 */}
-                <div className="relative w-14 h-14 flex items-center justify-center">
-                  <img
-                    src="/images/logo.png"
-                    alt="易潔寶 Logo"
-                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
-                    onError={(e) => {
-                      console.error('Logo failed to load from /images/logo.png');
-                      const target = e.currentTarget as HTMLImageElement;
-                      target.style.display = 'none';
-                      const fallback = target.parentElement?.querySelector('.fallback-logo') as HTMLElement;
-                      if (fallback) fallback.classList.remove('hidden');
-                    }}
-                  />
-                  {/* 備用 Logo */}
-                  <div className="fallback-logo hidden w-14 h-14 bg-gradient-to-br from-brand-red to-brand-red-dark rounded-xl flex items-center justify-center font-bold text-2xl text-white shadow-md">
-                    易
-                  </div>
-                </div>
-              </div>
-
-              {/* 公司名稱和標語 */}
-              <div className="hidden md:flex flex-col">
-                <div className="text-xl font-bold bg-gradient-to-r from-brand-red to-brand-gold bg-clip-text text-transparent">
-                  易潔寶
-                </div>
-                <div className="text-xs text-gray-500 font-medium tracking-wider">
-                  PROFESSIONAL MAT SINCE 2002
-                </div>
-              </div>
+              {/* 使用較大的 Logo，包含完整的品牌視覺 */}
+              <Logo variant="nav" className="h-12 md:h-14 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-md" />
             </motion.div>
           </Link>
 
@@ -91,7 +60,7 @@ export default function Navbar() {
                 <motion.button
                   className={`relative px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 ${
                     isActive(item.href)
-                      ? "text-white bg-gradient-to-r from-brand-red to-brand-red-dark shadow-md"
+                      ? "text-white bg-brand-red shadow-md"
                       : "text-gray-700 hover:text-brand-red hover:bg-gray-50"
                   }`}
                   whileHover={{ y: -2 }}
@@ -181,7 +150,7 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`w-full text-left px-5 py-3.5 rounded-xl transition-all font-medium ${
                         isActive(item.href)
-                          ? "text-white bg-gradient-to-r from-brand-red to-brand-red-dark shadow-md"
+                          ? "text-white bg-brand-red shadow-md"
                           : "text-gray-700 hover:bg-gray-50 hover:text-brand-red"
                       }`}
                     >

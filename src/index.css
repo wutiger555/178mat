@@ -525,3 +525,92 @@
   background-clip: text;
   animation: gradientShift 3s linear infinite;
 }
+
+/* 建築產業風格背景 */
+.architectural-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  position: relative;
+}
+
+.architectural-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 2px, transparent 2px);
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+/* 建築藍圖風格背景 */
+.blueprint-bg {
+  background-color: #f8f9fa;
+  background-image:
+    linear-gradient(rgba(184, 56, 45, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 56, 45, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(184, 56, 45, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 56, 45, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* 建材紋理效果 */
+.material-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.material-texture::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.01) 10px,
+      rgba(0, 0, 0, 0.01) 20px
+    );
+  pointer-events: none;
+}
+
+/* 專業分隔線 */
+.professional-divider {
+  position: relative;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.professional-divider::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, oklch(var(--primary)), transparent);
+}
+
+.professional-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+}
