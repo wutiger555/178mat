@@ -224,7 +224,7 @@ export default function Home() {
               <Link href="/projects">
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-white"
+                  className="bg-brand-red hover:bg-brand-red-dark text-white shadow-lg font-semibold"
                 >
                   查看工程實績 <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

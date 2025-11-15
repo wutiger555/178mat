@@ -267,7 +267,7 @@ export default function TaiwanMapStats() {
                 >
                   <Button
                     onClick={() => handleViewProjects(selectedCity)}
-                    className="w-full gap-2 bg-primary hover:bg-primary/90 text-white"
+                    className="w-full gap-2 bg-brand-red hover:bg-brand-red-dark text-white shadow-md"
                     size="lg"
                   >
                     查看 {selectedCity} 地區工程案例

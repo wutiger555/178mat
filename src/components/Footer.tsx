@@ -97,7 +97,7 @@ export default function Footer() {
                   <motion.a
                     key={index}
                     href={social.href}
-                    className="p-2 rounded-lg bg-muted hover:bg-primary hover:text-white transition-colors"
+                    className="p-2 rounded-lg bg-muted hover:bg-brand-red hover:text-white transition-colors"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     title={social.label}
@@ -195,7 +195,7 @@ export default function Footer() {
 
       {/* 回到頂部按鈕 */}
       <motion.button
-        className="fixed bottom-8 right-8 p-3 rounded-full bg-primary text-white shadow-lg hover:shadow-xl"
+        className="fixed bottom-8 right-8 p-3 rounded-full bg-brand-red hover:bg-brand-red-dark text-white shadow-lg hover:shadow-xl transition-colors"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         whileHover={{ scale: 1.1, y: -4 }}
         whileTap={{ scale: 0.95 }}
