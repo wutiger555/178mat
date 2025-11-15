@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ArrowRight } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, ArrowRight, Youtube } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
@@ -37,15 +37,36 @@ export default function Footer() {
   ];
 
   const contactInfo = [
-    { icon: Phone, label: "電話", value: "+886-2-XXXX-XXXX" },
-    { icon: Mail, label: "信箱", value: "info@178mat.com" },
-    { icon: MapPin, label: "地址", value: "台灣台北市..." },
+    {
+      icon: Phone,
+      label: "聯絡電話",
+      value: "02-2345-3467",
+      subValue: "傳真: 02-8192-7188"
+    },
+    {
+      icon: Mail,
+      label: "電子郵件",
+      value: "178@178mat.com",
+      subValue: "Line ID: 178mat"
+    },
+    {
+      icon: MapPin,
+      label: "公司地址",
+      value: "彰化縣鹿港鎮頂草路四段396號",
+      subValue: "統編: 53960999"
+    },
   ];
 
+  const BlogIcon = () => (
+    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19.5 3h-15A1.5 1.5 0 003 4.5v15A1.5 1.5 0 004.5 21h15a1.5 1.5 0 001.5-1.5v-15A1.5 1.5 0 0019.5 3zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+    </svg>
+  );
+
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Facebook, href: "https://www.facebook.com/178mat", label: "Facebook" },
+    { icon: Youtube, href: "https://www.youtube.com/@178mat", label: "Youtube" },
+    { icon: BlogIcon, href: "http://blog.178mat.com/", label: "Blog" },
   ];
 
   const containerVariants = {
@@ -151,6 +172,9 @@ export default function Footer() {
                         {info.label}
                       </div>
                       <div className="text-sm text-foreground">{info.value}</div>
+                      {info.subValue && (
+                        <div className="text-xs text-muted-foreground mt-1">{info.subValue}</div>
+                      )}
                     </div>
                   </motion.li>
                 );
@@ -177,7 +201,7 @@ export default function Footer() {
           transition={{ delay: 0.4 }}
         >
           <div className="text-sm text-muted-foreground">
-            © {currentYear} 易潔寶. All rights reserved. | 台灣製造 · 專業服務
+            © {currentYear} 易潔寶. All rights reserved. | 工廠直營 · 施工安裝 · 台灣製造
           </div>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">

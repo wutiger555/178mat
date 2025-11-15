@@ -185,7 +185,7 @@ export default function Contact() {
                       <div>
                         <div className="font-medium mb-1">公司地址</div>
                         <div className="text-sm text-muted-foreground">
-                          412 台中市大里區健民路3號
+                          彰化縣鹿港鎮頂草路四段396號
                         </div>
                       </div>
                     </div>
@@ -208,6 +208,20 @@ export default function Contact() {
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <Mail className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <div className="font-medium mb-1">電子郵件</div>
+                        <div className="text-sm text-muted-foreground">
+                          178@178mat.com
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M19.1 3H4.9A1.9 1.9 0 003 4.9v14.2A1.9 1.9 0 004.9 21h14.2a1.9 1.9 0 001.9-1.9V4.9A1.9 1.9 0 0019.1 3zm-5.5 16.5h-3.2v-6h3.2v6zm0-7.5h-3.2V9.7h3.2V12z" />
+                        </svg>
                       </div>
                       <div>
                         <div className="font-medium mb-1">LINE 聯絡</div>
@@ -244,6 +258,48 @@ export default function Contact() {
                         LINE 諮詢
                       </Button>
                     </a>
+                    <a
+                      href="mailto:178@178mat.com"
+                      className="block w-full"
+                    >
+                      <Button variant="outline" className="w-full gap-2">
+                        <Mail className="w-4 h-4" />
+                        電子郵件
+                      </Button>
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-brand-red/5 to-brand-gold/5 border-brand-red/20">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-4 text-brand-red">企業資訊</h3>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between items-center py-2 border-b border-border/50">
+                      <span className="text-muted-foreground font-medium">統一編號</span>
+                      <span className="font-semibold">53960999</span>
+                    </div>
+                    <div className="py-2 border-b border-border/50">
+                      <div className="text-muted-foreground font-medium mb-2">經營型態</div>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="px-3 py-1 bg-brand-red/10 text-brand-red rounded-full text-xs font-medium">
+                          工廠直營
+                        </span>
+                        <span className="px-3 py-1 bg-brand-red/10 text-brand-red rounded-full text-xs font-medium">
+                          施工安裝
+                        </span>
+                      </div>
+                    </div>
+                    <div className="py-2">
+                      <div className="text-muted-foreground font-medium mb-2">服務對象</div>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="px-2 py-1 bg-background rounded text-xs">建設開發</span>
+                        <span className="px-2 py-1 bg-background rounded text-xs">營造工程</span>
+                        <span className="px-2 py-1 bg-background rounded text-xs">室內設計</span>
+                        <span className="px-2 py-1 bg-background rounded text-xs">公共工程</span>
+                        <span className="px-2 py-1 bg-background rounded text-xs">經銷通路</span>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -258,20 +314,20 @@ export default function Contact() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">公司位置</h2>
             <p className="text-muted-foreground">
-              412 台中市大里區健民路3號
+              彰化縣鹿港鎮頂草路四段396號
             </p>
           </div>
           <div className="max-w-5xl mx-auto">
             <div className="aspect-[16/9] rounded-lg overflow-hidden border border-border">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3641.0!2d120.6778!3d24.0978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDA1JzUyLjEiTiAxMjDCsDQwJzQwLjEiRQ!5e0!3m2!1szh-TW!2stw!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3646.5!2d120.4344!3d24.0614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDAzJzQxLjAiTiAxMjDCsDI2JzAzLjgiRQ!5e0!3m2!1szh-TW!2stw!4v1234567890"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="易潔寶公司位置"
+                title="易潔寶公司位置 - 彰化縣鹿港鎮頂草路四段396號"
               />
             </div>
           </div>
