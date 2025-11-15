@@ -201,7 +201,7 @@ export default function Home() {
               >
                 <Logo variant="hero" className="drop-shadow-2xl" />
               </motion.div>
-              <Badge className="mb-4 bg-primary/90 hover:bg-primary">
+              <Badge className="mb-4 bg-brand-red/90 hover:bg-brand-red text-white">
                 台灣製造 · 專業服務
               </Badge>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
@@ -313,7 +313,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge className="mb-4 bg-brand-red/10 text-brand-red hover:bg-brand-red/20 border border-brand-red/20">
               核心服務
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -380,7 +380,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge className="mb-4 bg-brand-red/10 text-brand-red hover:bg-brand-red/20 border border-brand-red/20">
               施工流程
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -444,7 +444,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge className="mb-4 bg-brand-red/10 text-brand-red hover:bg-brand-red/20 border border-brand-red/20">
               服務範圍
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -478,7 +478,7 @@ export default function Home() {
             <Link href="/contact">
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90"
+                className="bg-white text-brand-red hover:bg-brand-red hover:text-white shadow-lg font-semibold transition-all"
               >
                 立即諮詢 <Phone className="ml-2 h-4 w-4" />
               </Button>

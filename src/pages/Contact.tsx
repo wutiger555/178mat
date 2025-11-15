@@ -364,7 +364,7 @@ export default function Contact() {
               },
               {
                 q: "服務範圍涵蓋哪些地區？",
-                a: "我們的服務範圍涵蓋全台灣。雖然公司位於台中，但我們在北中南都有服務案例，可以為全台客戶提供專業服務。",
+                a: "我們的服務範圍涵蓋全台灣。雖然公司位於彰化，但我們在北中南都有服務案例，可以為全台客戶提供專業服務。",
               },
             ].map((faq, index) => (
               <Card key={index} className="hover:border-primary/50 transition-all duration-300">
