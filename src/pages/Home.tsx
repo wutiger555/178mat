@@ -15,10 +15,17 @@ import {
   Phone,
   ChevronLeft,
   ChevronRight,
+  MessageSquare,
+  Ruler,
+  Palette,
+  Wrench,
+  CheckCheck,
 } from "lucide-react";
 import TaiwanMapStats from "@/components/TaiwanMapStats";
 import TaiwanMapVisualization from "@/components/TaiwanMapVisualization";
 import TaiwanMapChoropleth from "@/components/TaiwanMapChoropleth";
+import Logo from "@/components/Logo";
+import SEO from "@/components/SEO";
 
 const heroSlides = [
   {
@@ -84,11 +91,11 @@ const stats = [
 ];
 
 const processSteps = [
-  { step: "01", title: "需求諮詢", description: "了解您的需求與現場環境", icon: "💬" },
-  { step: "02", title: "現場勘查", description: "專業團隊到府測量與評估", icon: "📏" },
-  { step: "03", title: "方案設計", description: "提供客製化設計方案與報價", icon: "🎨" },
-  { step: "04", title: "專業施工", description: "經驗豐富的施工團隊執行", icon: "🔨" },
-  { step: "05", title: "驗收交付", description: "確保品質並提供保固服務", icon: "✅" },
+  { step: "01", title: "需求諮詢", description: "了解您的需求與現場環境", icon: MessageSquare },
+  { step: "02", title: "現場勘查", description: "專業團隊到府測量與評估", icon: Ruler },
+  { step: "03", title: "方案設計", description: "提供客製化設計方案與報價", icon: Palette },
+  { step: "04", title: "專業施工", description: "經驗豐富的施工團隊執行", icon: Wrench },
+  { step: "05", title: "驗收交付", description: "確保品質並提供保固服務", icon: CheckCheck },
 ];
 
 const containerVariants = {
@@ -155,9 +162,16 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero 區塊 - 改進設計 */}
-      <section className="relative h-screen flex items-center overflow-hidden">
+    <>
+      <SEO
+        title="易潔寶 - 台灣專業除泥地墊專家 | 嵌入式地墊、鋁合金框架施工 Since 2002"
+        description="易潔寶專營台灣主要出入口除泥地墊20年以上，提供嵌入式、表面式、排水式、坑槽式地墊之材料、設計、安裝、施工。台灣製造AL-620鋁合金框，1000+成功案例，全台服務。"
+        keywords="除泥地墊,刮泥墊,鋁合金地墊,嵌入式地墊,排水式地墊,易潔寶,178mat,台灣製造,地墊施工,建築地墊,AL-620,波羅紋,商業大樓地墊,住宅地墊"
+        url="https://www.178mat.com/"
+      />
+      <div className="min-h-screen bg-background">
+        {/* Hero 區塊 - 改進設計 */}
+        <section className="relative h-screen flex items-center overflow-hidden material-texture">
         {/* 背景輪播 */}
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
@@ -192,7 +206,15 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Badge className="mb-4 bg-primary/90 hover:bg-primary">
+              <motion.div
+                className="mb-6"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <Logo variant="hero" className="drop-shadow-2xl" />
+              </motion.div>
+              <Badge className="mb-4 bg-brand-red/90 hover:bg-brand-red text-white">
                 台灣製造 · 專業服務
               </Badge>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
@@ -215,7 +237,7 @@ export default function Home() {
               <Link href="/projects">
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-white"
+                  className="bg-brand-red hover:bg-brand-red-dark text-white shadow-lg font-semibold"
                 >
                   查看工程實績 <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -224,7 +246,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-white bg-transparent text-white hover:bg-white hover:text-brand-red transition-all"
                 >
                   立即諮詢
                 </Button>
@@ -267,7 +289,7 @@ export default function Home() {
       </section>
 
       {/* 統計區塊 */}
-      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5">
+      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5 architectural-grid">
         <div className="container mx-auto px-4">
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
@@ -295,7 +317,7 @@ export default function Home() {
       </section>
 
       {/* 服務介紹區塊 - 改進設計 */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background blueprint-bg">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -304,7 +326,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge className="mb-4 bg-brand-red/10 text-brand-red hover:bg-brand-red/20 border border-brand-red/20">
               核心服務
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -362,7 +384,7 @@ export default function Home() {
       </section>
 
       {/* 施工流程區塊 - 改進設計 */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/30 architectural-grid">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -371,7 +393,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge className="mb-4 bg-brand-red/10 text-brand-red hover:bg-brand-red/20 border border-brand-red/20">
               施工流程
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -407,7 +429,7 @@ export default function Home() {
                     whileHover={{ scale: 1.1 }}
                     >
                       <div className="text-center">
-                        <div className="text-4xl mb-2">{step.icon}</div>
+                        <step.icon className="w-12 h-12 mx-auto mb-2" strokeWidth={1.5} />
                         <div className="text-sm font-semibold">{step.step}</div>
                       </div>
                     </motion.div>
@@ -426,7 +448,7 @@ export default function Home() {
       </section>
 
       {/* 台灣地圖與統計區塊 */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background blueprint-bg">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -435,7 +457,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge className="mb-4 bg-brand-red/10 text-brand-red hover:bg-brand-red/20 border border-brand-red/20">
               服務範圍
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -469,7 +491,7 @@ export default function Home() {
             <Link href="/contact">
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90"
+                className="bg-white text-brand-red hover:bg-brand-red hover:text-white shadow-lg font-semibold transition-all"
               >
                 立即諮詢 <Phone className="ml-2 h-4 w-4" />
               </Button>
@@ -478,7 +500,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white/10"
+                className="border-white bg-transparent text-white hover:bg-white hover:text-brand-red transition-all"
               >
                 查看工程實績 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -486,6 +508,7 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

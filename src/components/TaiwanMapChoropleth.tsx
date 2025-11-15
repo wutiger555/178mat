@@ -151,7 +151,7 @@ export default function TaiwanMapChoropleth() {
   const totalProjects = Object.values(countyData).reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <div className="w-full space-y-8">
+    <div className="w-full space-y-8 relative z-10">
       <motion.div
         className="grid grid-cols-1 lg:grid-cols-4 gap-8"
         initial={{ opacity: 0, y: 20 }}
@@ -286,7 +286,7 @@ export default function TaiwanMapChoropleth() {
               >
                 <Button
                   onClick={() => handleViewProjects(selectedCounty.name)}
-                  className="w-full gap-2 bg-primary hover:bg-primary/90 text-white"
+                  className="w-full gap-2 bg-brand-red hover:bg-brand-red-dark text-white shadow-md"
                   size="lg"
                 >
                   查看 {selectedCounty.name} 案例

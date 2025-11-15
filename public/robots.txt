@@ -1,0 +1,25 @@
+# robots.txt for 易潔寶 (178mat.com)
+# 允許所有搜尋引擎索引
+
+User-agent: *
+Allow: /
+
+# 禁止索引的路徑（如有需要可以取消註解）
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap 位置
+Sitemap: https://www.178mat.com/sitemap.xml
+
+# 搜尋引擎特定設定
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# 抓取延遲（秒）
+Crawl-delay: 1
