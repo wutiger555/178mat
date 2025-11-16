@@ -8,7 +8,6 @@ import {
   Hospital,
   ShoppingCart,
   Grid3x3,
-  Eye,
   Ruler,
   Palette,
   ChevronLeft,
@@ -17,6 +16,8 @@ import {
   Info,
   Maximize2,
   RotateCcw,
+  Award,
+  Shield,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -46,7 +47,6 @@ export default function Showcase3D() {
   const [selectedScene, setSelectedScene] = useState<ShowcaseScene>(showcaseScenes[0]);
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialType | undefined>();
   const [showGrid, setShowGrid] = useState(false);
-  const [showPeople, setShowPeople] = useState(true);
   const [showMeasurements, setShowMeasurements] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -89,7 +89,6 @@ export default function Showcase3D() {
                 scene={selectedScene}
                 material={selectedMaterial}
                 showGrid={showGrid}
-                showPeople={showPeople}
                 showMeasurements={showMeasurements}
               />
             </Suspense>
@@ -189,15 +188,6 @@ export default function Showcase3D() {
                       網格輔助線
                     </Button>
                     <Button
-                      variant={showPeople ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setShowPeople(!showPeople)}
-                      className="w-full justify-start"
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      人流動畫
-                    </Button>
-                    <Button
                       variant={showMeasurements ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setShowMeasurements(!showMeasurements)}
@@ -244,7 +234,6 @@ export default function Showcase3D() {
                     size="sm"
                     onClick={() => {
                       setShowGrid(false);
-                      setShowPeople(true);
                       setShowMeasurements(false);
                       setSelectedMaterial(undefined);
                     }}
@@ -372,10 +361,20 @@ export default function Showcase3D() {
         <section className="bg-neutral-50 py-20">
           <div className="container mx-auto px-6">
             <div className="mb-12 text-center">
-              <h2 className="mb-4 text-4xl font-bold text-neutral-900">國際品牌對比</h2>
+              <h2 className="mb-4 text-4xl font-bold text-neutral-900">產品競爭力分析</h2>
               <p className="mx-auto max-w-2xl text-lg text-neutral-600">
-                易潔寶與國際頂尖品牌的專業比較
+                易潔寶與台灣及進口品牌的專業比較
               </p>
+              <div className="mt-6 flex justify-center gap-4">
+                <Badge variant="secondary" className="gap-2">
+                  <Award className="h-4 w-4" />
+                  專利設計認證
+                </Badge>
+                <Badge variant="secondary" className="gap-2">
+                  <Shield className="h-4 w-4" />
+                  CNS 14705-1 防火認證
+                </Badge>
+              </div>
             </div>
 
             <div className="overflow-x-auto">
@@ -383,11 +382,12 @@ export default function Showcase3D() {
                 <thead>
                   <tr className="bg-primary text-white">
                     <th className="border p-4 text-left">品牌</th>
-                    <th className="border p-4 text-left">國家</th>
+                    <th className="border p-4 text-left">產地</th>
                     <th className="border p-4 text-left">深度</th>
                     <th className="border p-4 text-left">材質</th>
                     <th className="border p-4 text-left">承重</th>
-                    <th className="border p-4 text-left">環保</th>
+                    <th className="border p-4 text-left">防火認證</th>
+                    <th className="border p-4 text-left">專利</th>
                     <th className="border p-4 text-left">保固</th>
                     <th className="border p-4 text-left">客製化</th>
                     <th className="border p-4 text-left">價格</th>
@@ -408,7 +408,20 @@ export default function Showcase3D() {
                       <td className="border p-4">{brand.depth}</td>
                       <td className="border p-4">{brand.material}</td>
                       <td className="border p-4">{brand.loadCapacity}</td>
-                      <td className="border p-4">{brand.ecoRating}</td>
+                      <td className="border p-4">
+                        {brand.fireRating.includes('✓✓') ? (
+                          <span className="font-semibold text-green-600">{brand.fireRating}</span>
+                        ) : (
+                          brand.fireRating
+                        )}
+                      </td>
+                      <td className="border p-4">
+                        {brand.patent.includes('✓✓') ? (
+                          <span className="font-semibold text-blue-600">{brand.patent}</span>
+                        ) : (
+                          brand.patent
+                        )}
+                      </td>
                       <td className="border p-4">{brand.warranty}</td>
                       <td className="border p-4">
                         {'⭐'.repeat(brand.customization)}

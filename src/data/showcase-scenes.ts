@@ -345,14 +345,15 @@ export const materialTypes: MaterialType[] = [
   },
 ];
 
-// 國際品牌對比數據
+// 品牌對比數據（匿名化處理）
 export interface BrandComparison {
   brand: string;
   country: string;
   depth: string;
   material: string;
   loadCapacity: string;
-  ecoRating: string;
+  fireRating: string;
+  patent: string;
   warranty: string;
   customization: number; // 1-5 stars
   priceRange: string;
@@ -365,43 +366,47 @@ export const brandComparisons: BrandComparison[] = [
     depth: '12-35mm',
     material: '鋁合金 + 多種面料',
     loadCapacity: '500kg/輪',
-    ecoRating: '台灣製造 ✓',
+    fireRating: 'CNS 14705-1 ✓✓',
+    patent: '專利設計 ✓✓',
     warranty: '2年保固+',
     customization: 5,
     priceRange: '$$',
   },
   {
-    brand: 'EMCO',
-    country: '🇩🇪 德國',
-    depth: '12-22mm',
-    material: '鋁合金 + PA6 纖維',
-    loadCapacity: '未提供',
-    ecoRating: 'C2C 認證 ✓✓',
-    warranty: '未提供',
-    customization: 3,
-    priceRange: '$$$+',
-  },
-  {
-    brand: 'C-S Pedimat',
-    country: '🇺🇸 美國',
-    depth: '11.1mm',
+    brand: 'A 品牌',
+    country: '🇹🇼 台灣',
+    depth: '10-25mm',
     material: '鋁合金 + 地毯',
-    loadCapacity: '159kg/輪',
-    ecoRating: '-',
-    warranty: '2年有限保固',
+    loadCapacity: '未提供',
+    fireRating: '未提供',
+    patent: '-',
+    warranty: '1年保固',
     customization: 3,
-    priceRange: '$$$',
+    priceRange: '$$',
   },
   {
-    brand: 'Forbo Coral',
-    country: '🇨🇭 瑞士',
-    depth: '8-9mm',
-    material: '尼龍 + 橡膠',
+    brand: 'B 品牌',
+    country: '🇹🇼 台灣',
+    depth: '12-20mm',
+    material: '鋁合金 + 塑膠',
+    loadCapacity: '300kg/輪',
+    fireRating: '未提供',
+    patent: '-',
+    warranty: '1年保固',
+    customization: 2,
+    priceRange: '$',
+  },
+  {
+    brand: 'C 品牌',
+    country: '🌍 進口',
+    depth: '8-15mm',
+    material: '鋁 + 纖維',
     loadCapacity: '未提供',
-    ecoRating: 'ISO 14001 ✓✓',
+    fireRating: '歐盟標準',
+    patent: '-',
     warranty: '未提供',
     customization: 2,
-    priceRange: '$$$',
+    priceRange: '$$$+',
   },
 ];
 

@@ -385,9 +385,9 @@ export default function Home() {
                 '6 個專業場景',
                 '360° 全視角展示',
                 '即時材質切換',
-                '技術規格標註',
-                '國際品牌對比',
-                'BIM 模型下載',
+                '專利設計認證',
+                'CNS 防火認證',
+                '競爭力分析',
               ].map((feature, index) => (
                 <div
                   key={index}

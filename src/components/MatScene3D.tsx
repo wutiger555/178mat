@@ -1,13 +1,12 @@
-import { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Grid, Environment, ContactShadows, Text } from '@react-three/drei';
+import { useRef } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, PerspectiveCamera, Grid, Environment, ContactShadows } from '@react-three/drei';
 import { ShowcaseScene, MaterialType } from '@/data/showcase-scenes';
 import * as THREE from 'three';
 
 // 鋁合金地墊 3D 模型組件
 function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: MaterialType }) {
   const groupRef = useRef<THREE.Group>(null);
-  const [hovered, setHovered] = useState(false);
 
   // 地墊尺寸（公尺）
   const matWidth = 3; // 3公尺寬
@@ -28,30 +27,27 @@ function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: Mat
   };
 
   return (
-    <group
-      ref={groupRef}
-      position={[0, matDepth / 2, 0]}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-      scale={hovered ? 1.02 : 1}
-    >
+    <group ref={groupRef} position={[0, matDepth / 2, 0]}>
       {/* 鋁合金外框 */}
       <mesh position={[0, 0, 0]} receiveShadow castShadow>
         <boxGeometry args={[matWidth + 0.1, matDepth, matLength + 0.1]} />
-        <meshStandardMaterial
+        <meshPhysicalMaterial
           color={frameColor}
-          metalness={0.8}
-          roughness={0.3}
+          metalness={0.9}
+          roughness={0.2}
+          reflectivity={0.8}
+          clearcoat={0.3}
         />
       </mesh>
 
       {/* 地墊面料 */}
       <mesh position={[0, matDepth * 0.3, 0]} receiveShadow castShadow>
         <boxGeometry args={[matWidth - 0.05, matDepth * 0.6, matLength - 0.05]} />
-        <meshStandardMaterial
+        <meshPhysicalMaterial
           color={getSurfaceColor()}
           metalness={0.1}
           roughness={scene.matSystem.surface.includes('毛刷') ? 0.9 : 0.7}
+          clearcoat={scene.matSystem.surface.includes('膠條') ? 0.5 : 0}
         />
       </mesh>
 
@@ -60,7 +56,7 @@ function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: Mat
         <mesh
           key={i}
           position={[
-            -matWidth / 2 + (i * matWidth) / 20,
+            -matWidth / 2 + (i * matWidth) / 20 + 0.075,
             matDepth * 0.5,
             0,
           ]}
@@ -68,26 +64,14 @@ function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: Mat
           castShadow
         >
           <boxGeometry args={[0.05, matDepth * 0.1, matLength - 0.1]} />
-          <meshStandardMaterial
+          <meshPhysicalMaterial
             color={frameColor}
-            metalness={0.9}
-            roughness={0.2}
+            metalness={0.95}
+            roughness={0.15}
+            reflectivity={0.9}
           />
         </mesh>
       ))}
-
-      {/* 標註文字 */}
-      {hovered && (
-        <Text
-          position={[0, matDepth + 0.5, 0]}
-          fontSize={0.3}
-          color="#0066CC"
-          anchorX="center"
-          anchorY="middle"
-        >
-          {scene.name}
-        </Text>
-      )}
     </group>
   );
 }
@@ -132,38 +116,11 @@ function BuildingEntrance({ scene }: { scene: ShowcaseScene }) {
           color="#87CEEB"
           metalness={0.1}
           roughness={0.1}
-          transmission={0.8}
+          transmission={0.9}
           thickness={0.5}
           transparent
-          opacity={0.6}
+          opacity={0.3}
         />
-      </mesh>
-    </group>
-  );
-}
-
-// 人物模型（簡化表示）
-function Person({ position, color }: { position: [number, number, number]; color: string }) {
-  const personRef = useRef<THREE.Group>(null);
-  const [direction] = useState(Math.random() > 0.5 ? 1 : -1);
-
-  useFrame((state) => {
-    if (personRef.current) {
-      personRef.current.position.z = position[2] + Math.sin(state.clock.elapsedTime * 0.5) * direction;
-    }
-  });
-
-  return (
-    <group ref={personRef} position={position}>
-      {/* 身體 */}
-      <mesh position={[0, 0.9, 0]} castShadow>
-        <capsuleGeometry args={[0.25, 0.8, 4, 8]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      {/* 頭部 */}
-      <mesh position={[0, 1.6, 0]} castShadow>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#FFD7B5" />
       </mesh>
     </group>
   );
@@ -173,7 +130,6 @@ function Person({ position, color }: { position: [number, number, number]; color
 interface MatScene3DProps {
   scene: ShowcaseScene;
   material?: MaterialType;
-  showPeople?: boolean;
   showGrid?: boolean;
   showMeasurements?: boolean;
 }
@@ -181,13 +137,12 @@ interface MatScene3DProps {
 export default function MatScene3D({
   scene,
   material,
-  showPeople = true,
   showGrid = false,
   showMeasurements = false,
 }: MatScene3DProps) {
   return (
     <div className="w-full h-full">
-      <Canvas shadows className="bg-gradient-to-b from-blue-50 to-white">
+      <Canvas shadows dpr={[1, 2]} className="bg-gradient-to-b from-blue-50 to-white">
         {/* 相機設置 */}
         <PerspectiveCamera
           makeDefault
@@ -216,6 +171,11 @@ export default function MatScene3D({
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
+          shadow-camera-far={50}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={10}
+          shadow-camera-bottom={-10}
         />
 
         {/* 補光 */}
@@ -256,46 +216,19 @@ export default function MatScene3D({
           />
         )}
 
-        {/* 人流動畫 */}
-        {showPeople && (
-          <>
-            <Person position={[-1.5, 0, 4]} color="#3B82F6" />
-            <Person position={[1.5, 0, 3]} color="#10B981" />
-            <Person position={[0, 0, 5]} color="#F59E0B" />
-          </>
-        )}
-
-        {/* 測量標註 */}
+        {/* 尺寸標註（簡化版，避免 Text 組件問題）*/}
         {showMeasurements && (
           <group>
-            {/* 寬度標註 */}
-            <Text
-              position={[-1.8, 0.1, -3.5]}
-              fontSize={0.2}
-              color="#0066CC"
-              anchorX="center"
-            >
-              3.0m
-            </Text>
-            {/* 長度標註 */}
-            <Text
-              position={[3.5, 0.1, 0]}
-              fontSize={0.2}
-              color="#0066CC"
-              anchorX="center"
-              rotation={[0, -Math.PI / 2, 0]}
-            >
-              6.0m
-            </Text>
-            {/* 深度標註 */}
-            <Text
-              position={[3.8, 0.1, -3]}
-              fontSize={0.15}
-              color="#10B981"
-              anchorX="center"
-            >
-              深度: {scene.matSystem.depth}
-            </Text>
+            {/* 寬度標註線 */}
+            <mesh position={[0, 0.05, -3.2]}>
+              <boxGeometry args={[3, 0.02, 0.02]} />
+              <meshBasicMaterial color="#0066CC" />
+            </mesh>
+            {/* 長度標註線 */}
+            <mesh position={[3.2, 0.05, 0]} rotation={[0, Math.PI / 2, 0]}>
+              <boxGeometry args={[6, 0.02, 0.02]} />
+              <meshBasicMaterial color="#0066CC" />
+            </mesh>
           </group>
         )}
       </Canvas>
