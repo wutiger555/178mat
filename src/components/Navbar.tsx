@@ -24,6 +24,7 @@ export default function Navbar() {
     { href: "/services", label: "服務項目" },
     { href: "/projects", label: "工程實績" },
     { href: "/products", label: "產品型錄" },
+    { href: "/showcase-3d", label: "3D 展示" },
     { href: "/contact", label: "聯絡我們" },
   ];
 
