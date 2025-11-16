@@ -4,555 +4,289 @@ import { OrbitControls, PerspectiveCamera, ContactShadows } from '@react-three/d
 import { ShowcaseScene, MaterialType } from '@/data/showcase-scenes';
 import * as THREE from 'three';
 
-// 單條鋁合金條組件 - 精確按真實結構建模
-// 尺寸單位：mm（在代碼中轉換為米）
-// X軸：鋁條長度方向（出入口走向）
-// Y軸：高度
-// Z軸：鋁條排列方向
-function AluminumRail({
+// 單條鋁合金細條（非常細密的一條）
+// 鋁條方向：沿著出入口走動方向（從室外指向室內）
+function AluminumBar({
   position,
-  surfaceType,
+  barLength,
   surfaceColor,
-  barLength
+  isCarpet
 }: {
   position: [number, number, number];
-  surfaceType: 'ribbed' | 'carpet';
+  barLength: number;
   surfaceColor: string;
-  barLength: number; // 鋁條長度（米）
+  isCarpet: boolean;
 }) {
-  // 真實尺寸（mm → m）
-  const barWidth = 0.030;      // 30mm 鋁條寬度（Z方向）
-  const totalHeight = 0.020;   // 20mm 總高度
-  const pvcHeight = 0.005;     // 5mm PVC底墊高度
-  const alFrameHeight = 0.012; // 12mm 鋁框架高度
-  const insertHeight = 0.003;  // 3mm 表面模組可見高度
-  const recessDepth = 0.009;   // 9mm 凹槽深度
-  const wallThick = 0.0015;    // 1.5mm 壁厚
-  const insertWidth = 0.028;   // 28mm 表面模組寬度（留1mm間隙）
+  const barWidth = 0.012;   // 12mm 單條寬度（很細）
+  const barHeight = 0.018;  // 18mm 高度
+  const gapWidth = 0.003;   // 3mm 縫隙
 
   return (
     <group position={position}>
-      {/* 層1: PVC橡膠墊底（最底層）*/}
-      <mesh receiveShadow position={[0, pvcHeight/2, 0]}>
-        <boxGeometry args={[barWidth, pvcHeight, barLength]} />
-        <meshStandardMaterial
-          color="#3A3A3A"
-          roughness={0.9}
-          metalness={0.1}
+      {/* PVC底墊 */}
+      <mesh receiveShadow position={[0, 0.0025, 0]}>
+        <boxGeometry args={[barWidth, 0.005, barLength]} />
+        <meshStandardMaterial color="#2A2A2A" roughness={0.9} />
+      </mesh>
+
+      {/* 鋁框 */}
+      <mesh receiveShadow castShadow position={[0, 0.01, 0]}>
+        <boxGeometry args={[barWidth, 0.012, barLength]} />
+        <meshPhysicalMaterial
+          color="#B5B5B5"
+          metalness={0.95}
+          roughness={0.12}
+          reflectivity={0.95}
+          clearcoat={0.6}
         />
       </mesh>
 
-      {/* 層2: 鋁合金擠壓框架 - 外殼 */}
-      <group position={[0, pvcHeight + alFrameHeight/2, 0]}>
-        {/* 底板 */}
-        <mesh receiveShadow castShadow position={[0, -alFrameHeight/2 + wallThick/2, 0]}>
-          <boxGeometry args={[barWidth, wallThick, barLength]} />
-          <meshPhysicalMaterial
-            color="#C0C0C0"
-            metalness={0.95}
-            roughness={0.12}
-            reflectivity={0.95}
-            clearcoat={0.6}
-            clearcoatRoughness={0.08}
-          />
+      {/* 表面 */}
+      {isCarpet ? (
+        <mesh receiveShadow castShadow position={[0, 0.017, 0]}>
+          <boxGeometry args={[barWidth * 0.9, 0.004, barLength - 0.01]} />
+          <meshStandardMaterial color={surfaceColor} roughness={0.95} />
         </mesh>
-
-        {/* 左側壁 */}
-        <mesh receiveShadow castShadow position={[-barWidth/2 + wallThick/2, 0, 0]}>
-          <boxGeometry args={[wallThick, alFrameHeight, barLength]} />
-          <meshPhysicalMaterial
-            color="#B8B8B8"
-            metalness={0.95}
-            roughness={0.15}
-            reflectivity={0.95}
-            clearcoat={0.6}
-            clearcoatRoughness={0.08}
-          />
-        </mesh>
-
-        {/* 右側壁 */}
-        <mesh receiveShadow castShadow position={[barWidth/2 - wallThick/2, 0, 0]}>
-          <boxGeometry args={[wallThick, alFrameHeight, barLength]} />
-          <meshPhysicalMaterial
-            color="#B8B8B8"
-            metalness={0.95}
-            roughness={0.15}
-            reflectivity={0.95}
-            clearcoat={0.6}
-            clearcoatRoughness={0.08}
-          />
-        </mesh>
-
-        {/* 前端壁 */}
-        <mesh receiveShadow castShadow position={[0, 0, -barLength/2 + wallThick/2]}>
-          <boxGeometry args={[barWidth - wallThick*2, alFrameHeight, wallThick]} />
-          <meshPhysicalMaterial
-            color="#B8B8B8"
-            metalness={0.95}
-            roughness={0.15}
-            reflectivity={0.95}
-            clearcoat={0.6}
-            clearcoatRoughness={0.08}
-          />
-        </mesh>
-
-        {/* 後端壁 */}
-        <mesh receiveShadow castShadow position={[0, 0, barLength/2 - wallThick/2]}>
-          <boxGeometry args={[barWidth - wallThick*2, alFrameHeight, wallThick]} />
-          <meshPhysicalMaterial
-            color="#B8B8B8"
-            metalness={0.95}
-            roughness={0.15}
-            reflectivity={0.95}
-            clearcoat={0.6}
-            clearcoatRoughness={0.08}
-          />
-        </mesh>
-      </group>
-
-      {/* 層3: 表面模組（嵌入在凹槽中）*/}
-      <group position={[0, pvcHeight + alFrameHeight - recessDepth + insertHeight/2, 0]}>
-        {surfaceType === 'ribbed' ? (
-          // PVC肋條型：多條平行細肋
-          <group>
-            {Array.from({ length: 24 }).map((_, i) => {
-              const ribWidth = 0.001;   // 1mm 肋條寬度
-              const ribHeight = 0.001;  // 1mm 肋條高度
-              const ribGap = 0.0002;    // 0.2mm 間隙
-              const ribPitch = ribWidth + ribGap;
-              const totalRibWidth = 24 * ribPitch;
-              const xPos = -totalRibWidth/2 + i * ribPitch + ribWidth/2;
-
-              return (
-                <mesh key={i} position={[xPos, insertHeight/2, 0]} receiveShadow castShadow>
-                  <boxGeometry args={[ribWidth, ribHeight, barLength - 0.004]} />
-                  <meshPhysicalMaterial
-                    color={surfaceColor}
-                    metalness={0.12}
-                    roughness={0.88}
-                    clearcoat={0.35}
-                    clearcoatRoughness={0.4}
-                  />
-                </mesh>
-              );
-            })}
-            {/* 肋條底層 */}
-            <mesh position={[0, 0, 0]} receiveShadow>
-              <boxGeometry args={[insertWidth, insertHeight - 0.001, barLength - 0.004]} />
-              <meshStandardMaterial
-                color={surfaceColor}
-                roughness={0.85}
-                metalness={0.08}
-              />
-            </mesh>
-          </group>
-        ) : (
-          // 地毯型：微凸紋理表面
-          <mesh position={[0, 0, 0]} receiveShadow castShadow>
-            <boxGeometry args={[insertWidth, insertHeight, barLength - 0.004]} />
-            <meshPhysicalMaterial
-              color={surfaceColor}
-              metalness={0.03}
-              roughness={0.96}
-              clearcoat={0}
-            />
-          </mesh>
-        )}
-      </group>
+      ) : (
+        // 肋條表面
+        <group position={[0, 0.017, 0]}>
+          {Array.from({ length: Math.floor(barLength * 100) }).map((_, i) => {
+            const ribZ = -barLength/2 + 0.01 + i * 0.01;
+            return (
+              <mesh key={i} position={[0, 0, ribZ]} receiveShadow castShadow>
+                <boxGeometry args={[barWidth * 0.85, 0.003, 0.002]} />
+                <meshStandardMaterial color={surfaceColor} roughness={0.88} />
+              </mesh>
+            );
+          })}
+        </group>
+      )}
     </group>
   );
 }
 
-// 完整鋁合金地墊組件
-function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: MaterialType }) {
-  const groupRef = useRef<THREE.Group>(null);
+// 完整嵌入式鋁條地墊（密集細條，帶斜切角）
+function EmbeddedEntranceMat({ surfaceType = 'carpet' }: { surfaceType?: 'carpet' | 'ribbed' }) {
+  // 地墊尺寸（符合兩扇門寬度）
+  const matWidth = 1.8;    // 1.8m 寬（約兩扇門寬度）
+  const matDepth = 1.0;    // 1.0m 深（約1.5倍腳步深度）
+  const numBars = 60;      // 60條細密鋁條
+  const barWidth = 0.012;  // 12mm 單條
+  const barGap = 0.003;    // 3mm 間隙
 
-  // 地墊整體參數（真實入口地墊尺寸）
-  const barLength = 1.2;    // 1.2m 鋁條長度（X方向，合理的入口地墊長度）
-  const numBars = 12;       // 12條鋁條（Z方向）
-  const barWidth = 0.030;   // 30mm 單條寬度
-  const barGap = 0.005;     // 5mm 鋁條間隙
-  const totalWidth = numBars * barWidth + (numBars - 1) * barGap; // 總寬度約 41.5cm
-
-  // 根據場景和材質決定顏色配置
-  const barConfigs = useMemo(() => {
-    const configs = [];
-
-    if (scene.matSystem.surface.includes('多色')) {
-      // 多色配置（地毯+肋條混合）
-      const pattern = [
-        { type: 'carpet' as const, color: '#707070' }, // 灰色地毯
-        { type: 'carpet' as const, color: '#8B4513' }, // 咖啡色地毯
-        { type: 'ribbed' as const, color: '#1A1A1A' }, // 黑色肋條
-        { type: 'carpet' as const, color: '#606060' }, // 深灰地毯
-        { type: 'carpet' as const, color: '#8B4513' }, // 咖啡色地毯
-        { type: 'ribbed' as const, color: '#1A1A1A' }, // 黑色肋條
-        { type: 'carpet' as const, color: '#707070' }, // 灰色地毯
-        { type: 'carpet' as const, color: '#606060' }, // 深灰地毯
-        { type: 'ribbed' as const, color: '#1A1A1A' }, // 黑色肋條
-        { type: 'carpet' as const, color: '#8B4513' }, // 咖啡色地毯
-        { type: 'carpet' as const, color: '#707070' }, // 灰色地毯
-        { type: 'ribbed' as const, color: '#1A1A1A' }  // 黑色肋條
-      ];
-      configs.push(...pattern);
-    } else if (scene.matSystem.surface.includes('止滑膠條')) {
-      // 全肋條配置
-      for (let i = 0; i < numBars; i++) {
-        configs.push({ type: 'ribbed' as const, color: '#1A1A1A' });
-      }
-    } else {
-      // 單色地毯配置
-      const color = material?.color || (
-        scene.matSystem.surface.includes('灰色') ? '#808080' :
-        scene.matSystem.surface.includes('黑色') ? '#404040' :
-        scene.matSystem.surface.includes('棕') ? '#8B4513' : '#707070'
-      );
-      for (let i = 0; i < numBars; i++) {
-        configs.push({ type: 'carpet' as const, color });
-      }
-    }
-
-    return configs;
-  }, [scene, material, numBars]);
+  // 左下角斜切角參數
+  const chamferSize = 0.3; // 斜切30cm
 
   return (
-    <group ref={groupRef} rotation={[0, Math.PI / 2, 0]}>
-      {/* 鋁條陣列（Z方向排列）*/}
-      {barConfigs.map((config, i) => {
-        const zPos = -totalWidth / 2 + (barWidth / 2) + i * (barWidth + barGap);
+    <group position={[0, 0, 0]}>
+      {/* 密集鋁條陣列（沿Z方向排列，從室外指向室內）*/}
+      {Array.from({ length: numBars }).map((_, i) => {
+        const xPos = -matWidth/2 + (barWidth + barGap) * i + barWidth/2;
+
+        // 左下角斜切：如果在左側且靠前，縮短長度
+        let actualDepth = matDepth;
+        let zOffset = 0;
+
+        if (xPos < -matWidth/2 + chamferSize && i < numBars / 3) {
+          const ratio = (xPos - (-matWidth/2)) / chamferSize;
+          actualDepth = matDepth * (0.3 + 0.7 * ratio);
+          zOffset = (matDepth - actualDepth) / 2;
+        }
+
+        const color = surfaceType === 'carpet' ?
+          (i % 3 === 0 ? '#707070' : i % 3 === 1 ? '#8B4513' : '#606060') :
+          '#1A1A1A';
+
         return (
-          <AluminumRail
+          <AluminumBar
             key={i}
-            position={[0, 0, zPos]}
-            surfaceType={config.type}
-            surfaceColor={config.color}
-            barLength={barLength}
+            position={[xPos, 0, zOffset]}
+            barLength={actualDepth}
+            surfaceColor={color}
+            isCarpet={surfaceType === 'carpet'}
           />
         );
       })}
 
-      {/* 橡膠間隔條（鋁條之間的黑色縫隙）*/}
+      {/* 黑色縫隙填充 */}
       {Array.from({ length: numBars - 1 }).map((_, i) => {
-        const zPos = -totalWidth / 2 + barWidth + i * (barWidth + barGap) + barGap / 2;
+        const xPos = -matWidth/2 + (barWidth + barGap) * i + barWidth + barGap/2;
         return (
-          <mesh key={`gap-${i}`} position={[0, 0.0025, zPos]} receiveShadow>
-            <boxGeometry args={[barLength, 0.005, barGap]} />
-            <meshStandardMaterial color="#1A1A1A" metalness={0.15} roughness={0.85} />
+          <mesh key={`gap-${i}`} position={[xPos, 0.009, 0]} receiveShadow>
+            <boxGeometry args={[barGap, 0.018, matDepth]} />
+            <meshStandardMaterial color="#0A0A0A" roughness={0.9} />
           </mesh>
         );
       })}
 
-      {/* 前端收邊條 */}
-      <mesh position={[barLength/2 + 0.015, 0.01, 0]} receiveShadow castShadow>
-        <boxGeometry args={[0.03, 0.006, totalWidth + 0.006]} />
-        <meshPhysicalMaterial
-          color="#B0B0B0"
-          metalness={0.95}
-          roughness={0.12}
-          reflectivity={0.95}
-          clearcoat={0.6}
-          clearcoatRoughness={0.08}
-        />
+      {/* 金屬收邊框 */}
+      {/* 前邊 */}
+      <mesh position={[0, 0.01, matDepth/2 + 0.01]} receiveShadow castShadow>
+        <boxGeometry args={[matWidth + 0.04, 0.005, 0.02]} />
+        <meshPhysicalMaterial color="#C0C0C0" metalness={0.95} roughness={0.1} />
       </mesh>
-
-      {/* 後端收邊條 */}
-      <mesh position={[-barLength/2 - 0.015, 0.01, 0]} receiveShadow castShadow>
-        <boxGeometry args={[0.03, 0.006, totalWidth + 0.006]} />
-        <meshPhysicalMaterial
-          color="#B0B0B0"
-          metalness={0.95}
-          roughness={0.12}
-          reflectivity={0.95}
-          clearcoat={0.6}
-          clearcoatRoughness={0.08}
-        />
+      {/* 後邊 */}
+      <mesh position={[0, 0.01, -matDepth/2 - 0.01]} receiveShadow castShadow>
+        <boxGeometry args={[matWidth + 0.04, 0.005, 0.02]} />
+        <meshPhysicalMaterial color="#C0C0C0" metalness={0.95} roughness={0.1} />
       </mesh>
-
-      {/* 固定螺絲（前端收邊條）*/}
-      {[-totalWidth/3, 0, totalWidth/3].map((zPos, i) => (
-        <group key={`screw-front-${i}`} position={[barLength/2 + 0.015, 0.013, zPos]}>
-          <mesh castShadow>
-            <cylinderGeometry args={[0.003, 0.003, 0.004, 16]} />
-            <meshPhysicalMaterial
-              color="#2A2A2A"
-              metalness={0.85}
-              roughness={0.15}
-              clearcoat={0.4}
-            />
-          </mesh>
-          <mesh position={[0, 0.0022, 0]}>
-            <cylinderGeometry args={[0.001, 0.001, 0.0008, 16]} />
-            <meshStandardMaterial color="#0A0A0A" metalness={0.6} roughness={0.4} />
-          </mesh>
-        </group>
-      ))}
-
-      {/* 固定螺絲（後端收邊條）*/}
-      {[-totalWidth/3, 0, totalWidth/3].map((zPos, i) => (
-        <group key={`screw-back-${i}`} position={[-barLength/2 - 0.015, 0.013, zPos]}>
-          <mesh castShadow>
-            <cylinderGeometry args={[0.003, 0.003, 0.004, 16]} />
-            <meshPhysicalMaterial
-              color="#2A2A2A"
-              metalness={0.85}
-              roughness={0.15}
-              clearcoat={0.4}
-            />
-          </mesh>
-          <mesh position={[0, 0.0022, 0]}>
-            <cylinderGeometry args={[0.001, 0.001, 0.0008, 16]} />
-            <meshStandardMaterial color="#0A0A0A" metalness={0.6} roughness={0.4} />
-          </mesh>
-        </group>
-      ))}
+      {/* 左邊（帶斜切） */}
+      <mesh position={[-matWidth/2 - 0.01, 0.01, 0]} receiveShadow castShadow>
+        <boxGeometry args={[0.02, 0.005, matDepth + 0.04]} />
+        <meshPhysicalMaterial color="#C0C0C0" metalness={0.95} roughness={0.1} />
+      </mesh>
+      {/* 右邊 */}
+      <mesh position={[matWidth/2 + 0.01, 0.01, 0]} receiveShadow castShadow>
+        <boxGeometry args={[0.02, 0.005, matDepth + 0.04]} />
+        <meshPhysicalMaterial color="#C0C0C0" metalness={0.95} roughness={0.1} />
+      </mesh>
     </group>
   );
 }
 
-// 企業辦公大樓場景 - 以地墊為中心
-function CorporateOfficeScene() {
+// 完整室內入口場景組件
+function IndoorEntranceScene() {
+  // 尺寸參數
+  const indoorFloorWidth = 5.0;   // 室內地板寬度 5m
+  const indoorFloorDepth = 4.0;   // 室內地板深度 4m（從門口往室內）
+  const outdoorFloorDepth = 1.5;  // 室外地面深度 1.5m
+
+  const matWidth = 1.8;  // 地墊寬度 1.8m
+  const matDepth = 1.0;  // 地墊深度 1.0m
+
+  const doorWidth = 1.8;  // 落地玻璃門寬度（兩扇門）
+  const doorHeight = 2.4; // 門高度
+
   return (
     <group>
-      {/* 地板 - 拋光地磚 */}
-      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
+      {/* === 室內木地板 === */}
+      {/* 木地板主體 */}
+      <mesh position={[0, 0, -matDepth/2 - indoorFloorDepth/2]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[indoorFloorWidth, indoorFloorDepth]} />
         <meshPhysicalMaterial
-          color="#E5E5E5"
-          metalness={0.3}
-          roughness={0.5}
-          clearcoat={0.9}
-          clearcoatRoughness={0.1}
+          color="#C8A882"
+          metalness={0.05}
+          roughness={0.65}
+          clearcoat={0.3}
         />
       </mesh>
 
-      {/* 門框 - 尺寸與地墊匹配 */}
-      <group position={[0.8, 1.1, 0]}>
-        {/* 左側門柱 */}
-        <mesh position={[0, 0, -0.28]} castShadow>
-          <boxGeometry args={[0.08, 2.2, 0.08]} />
-          <meshStandardMaterial color="#303030" roughness={0.25} metalness={0.75} />
+      {/* 木板拼接縫（沿X方向的長條木板）*/}
+      {Array.from({ length: 15 }).map((_, i) => (
+        <mesh
+          key={`wood-line-${i}`}
+          position={[-indoorFloorWidth/2 + i * (indoorFloorWidth/15), 0.001, -matDepth/2 - indoorFloorDepth/2]}
+          receiveShadow
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
+          <planeGeometry args={[0.005, indoorFloorDepth]} />
+          <meshStandardMaterial color="#A08060" roughness={0.8} />
         </mesh>
-        {/* 右側門柱 */}
-        <mesh position={[0, 0, 0.28]} castShadow>
-          <boxGeometry args={[0.08, 2.2, 0.08]} />
-          <meshStandardMaterial color="#303030" roughness={0.25} metalness={0.75} />
-        </mesh>
-        {/* 門楣 */}
-        <mesh position={[0, 1.1, 0]} castShadow>
-          <boxGeometry args={[0.08, 0.08, 0.64]} />
-          <meshStandardMaterial color="#303030" roughness={0.25} metalness={0.75} />
-        </mesh>
-        {/* 玻璃門片 */}
-        <mesh position={[0.01, 0, 0]}>
-          <boxGeometry args={[0.015, 2.1, 0.52]} />
+      ))}
+
+      {/* === 地墊嵌入凹槽 === */}
+      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[matWidth + 0.1, matDepth + 0.1]} />
+        <meshStandardMaterial color="#1A1A1A" roughness={0.95} />
+      </mesh>
+
+      {/* === 嵌入式鋁條地墊 === */}
+      <EmbeddedEntranceMat surfaceType="carpet" />
+
+      {/* === 室外水泥地面 === */}
+      <mesh position={[0, -0.002, matDepth/2 + outdoorFloorDepth/2]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[indoorFloorWidth, outdoorFloorDepth]} />
+        <meshStandardMaterial
+          color="#888888"
+          metalness={0.1}
+          roughness={0.85}
+        />
+      </mesh>
+
+      {/* === 落地玻璃門系統 === */}
+      <group position={[0, doorHeight/2, matDepth/2]}>
+        {/* 左側門框 */}
+        <mesh position={[-doorWidth/2, 0, 0]} castShadow>
+          <boxGeometry args={[0.05, doorHeight, 0.08]} />
           <meshPhysicalMaterial
-            color="#C8DCE8"
-            transmission={0.88}
-            thickness={0.25}
-            roughness={0.08}
+            color="#B8B8B8"
+            metalness={0.95}
+            roughness={0.15}
+          />
+        </mesh>
+
+        {/* 右側門框 */}
+        <mesh position={[doorWidth/2, 0, 0]} castShadow>
+          <boxGeometry args={[0.05, doorHeight, 0.08]} />
+          <meshPhysicalMaterial
+            color="#B8B8B8"
+            metalness={0.95}
+            roughness={0.15}
+          />
+        </mesh>
+
+        {/* 頂部門框 */}
+        <mesh position={[0, doorHeight/2, 0]} castShadow>
+          <boxGeometry args={[doorWidth + 0.1, 0.08, 0.08]} />
+          <meshPhysicalMaterial
+            color="#B8B8B8"
+            metalness={0.95}
+            roughness={0.15}
+          />
+        </mesh>
+
+        {/* 左側玻璃門扇（關閉狀態）*/}
+        <mesh position={[-doorWidth/4, 0, -0.02]} castShadow receiveShadow>
+          <boxGeometry args={[doorWidth/2 - 0.06, doorHeight - 0.08, 0.012]} />
+          <meshPhysicalMaterial
+            color="#D0E8F5"
+            transmission={0.9}
+            thickness={0.3}
+            roughness={0.05}
             transparent
           />
         </mesh>
+
+        {/* 右側玻璃門扇（微開）*/}
+        <group position={[doorWidth/4, 0, -0.15]} rotation={[0, -0.3, 0]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[doorWidth/2 - 0.06, doorHeight - 0.08, 0.012]} />
+            <meshPhysicalMaterial
+              color="#D0E8F5"
+              transmission={0.9}
+              thickness={0.3}
+              roughness={0.05}
+              transparent
+            />
+          </mesh>
+        </group>
+
+        {/* 門軌道 */}
+        <mesh position={[0, -doorHeight/2 + 0.02, 0]} receiveShadow>
+          <boxGeometry args={[doorWidth + 0.1, 0.04, 0.03]} />
+          <meshPhysicalMaterial
+            color="#A0A0A0"
+            metalness={0.9}
+            roughness={0.2}
+          />
+        </mesh>
       </group>
 
-      {/* 背景牆面 */}
-      <mesh position={[0.88, 1.5, 0]} receiveShadow rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[0.05, 3]} />
-        <meshStandardMaterial color="#F2F2F2" roughness={0.88} />
+      {/* === 室內牆面（門框背後）=== */}
+      <mesh position={[0, 1.5, matDepth/2 + 0.04]} receiveShadow>
+        <planeGeometry args={[indoorFloorWidth, 3]} />
+        <meshStandardMaterial color="#F5F5F5" roughness={0.85} />
+      </mesh>
+
+      {/* === 天花板（略微可見）=== */}
+      <mesh position={[0, 3, -1]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[indoorFloorWidth, 3]} />
+        <meshStandardMaterial color="#FAFAFA" roughness={0.9} />
       </mesh>
     </group>
   );
 }
 
-// 五星級飯店場景
-function LuxuryHotelScene() {
-  return (
-    <group>
-      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshPhysicalMaterial color="#F8F3E8" metalness={0.2} roughness={0.3} clearcoat={1.0} clearcoatRoughness={0.05} />
-      </mesh>
-      <group position={[0.8, 1.1, 0]}>
-        <mesh position={[0, 0, -0.28]} castShadow>
-          <boxGeometry args={[0.06, 2.2, 0.06]} />
-          <meshPhysicalMaterial color="#D4AF37" metalness={0.95} roughness={0.12} />
-        </mesh>
-        <mesh position={[0, 0, 0.28]} castShadow>
-          <boxGeometry args={[0.06, 2.2, 0.06]} />
-          <meshPhysicalMaterial color="#D4AF37" metalness={0.95} roughness={0.12} />
-        </mesh>
-        <mesh position={[0, 1.1, 0]} castShadow>
-          <boxGeometry args={[0.06, 0.06, 0.62]} />
-          <meshPhysicalMaterial color="#D4AF37" metalness={0.95} roughness={0.12} />
-        </mesh>
-        <mesh position={[0.01, 0, 0]}>
-          <boxGeometry args={[0.015, 2.1, 0.5]} />
-          <meshPhysicalMaterial color="#E8F0F5" transmission={0.88} thickness={0.25} roughness={0.05} transparent />
-        </mesh>
-      </group>
-      <mesh position={[0.86, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[0.05, 3]} />
-        <meshStandardMaterial color="#FAF7F2" roughness={0.75} />
-      </mesh>
-    </group>
-  );
-}
-
-// 國際機場場景
-function AirportTerminalScene() {
-  return (
-    <group>
-      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshStandardMaterial color="#D8D8D8" metalness={0.2} roughness={0.72} />
-      </mesh>
-      <group position={[0.8, 1.1, 0]}>
-        <mesh position={[0, 0, -0.3]} castShadow>
-          <boxGeometry args={[0.09, 2.2, 0.09]} />
-          <meshPhysicalMaterial color="#555555" metalness={0.82} roughness={0.28} />
-        </mesh>
-        <mesh position={[0, 0, 0.3]} castShadow>
-          <boxGeometry args={[0.09, 2.2, 0.09]} />
-          <meshPhysicalMaterial color="#555555" metalness={0.82} roughness={0.28} />
-        </mesh>
-        <mesh position={[0, 1.1, 0]} castShadow>
-          <boxGeometry args={[0.09, 0.09, 0.69]} />
-          <meshPhysicalMaterial color="#555555" metalness={0.82} roughness={0.28} />
-        </mesh>
-        <mesh position={[0.01, 0, 0]}>
-          <boxGeometry args={[0.015, 2.1, 0.51]} />
-          <meshPhysicalMaterial color="#B5D5E8" transmission={0.87} thickness={0.25} roughness={0.08} transparent />
-        </mesh>
-      </group>
-      <mesh position={[0.89, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[0.05, 3]} />
-        <meshStandardMaterial color="#EBEBEB" roughness={0.82} />
-      </mesh>
-    </group>
-  );
-}
-
-// 科技園區場景
-function TechParkScene() {
-  return (
-    <group>
-      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshPhysicalMaterial color="#C5C5C5" metalness={0.32} roughness={0.62} />
-      </mesh>
-      <group position={[0.8, 1.15, 0]}>
-        <mesh position={[0, 0, -0.27]} castShadow>
-          <boxGeometry args={[0.05, 2.3, 0.05]} />
-          <meshPhysicalMaterial color="#787878" metalness={0.95} roughness={0.1} />
-        </mesh>
-        <mesh position={[0, 0, 0.27]} castShadow>
-          <boxGeometry args={[0.05, 2.3, 0.05]} />
-          <meshPhysicalMaterial color="#787878" metalness={0.95} roughness={0.1} />
-        </mesh>
-        <mesh position={[0, 1.15, 0]} castShadow>
-          <boxGeometry args={[0.05, 0.05, 0.59]} />
-          <meshPhysicalMaterial color="#787878" metalness={0.95} roughness={0.1} />
-        </mesh>
-        <mesh position={[0.01, 0, 0]}>
-          <boxGeometry args={[0.012, 2.25, 0.49]} />
-          <meshPhysicalMaterial color="#A5C8E0" transmission={0.9} thickness={0.22} roughness={0.05} transparent />
-        </mesh>
-      </group>
-      <mesh position={[0.86, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[0.05, 3]} />
-        <meshStandardMaterial color="#DCDCDC" roughness={0.78} />
-      </mesh>
-    </group>
-  );
-}
-
-// 醫療中心場景
-function MedicalCenterScene() {
-  return (
-    <group>
-      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshPhysicalMaterial color="#F4F7FA" metalness={0.16} roughness={0.62} clearcoat={0.82} />
-      </mesh>
-      <group position={[0.8, 1.05, 0]}>
-        <mesh position={[0, 0, -0.28]} castShadow>
-          <boxGeometry args={[0.08, 2.1, 0.08]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.32} />
-        </mesh>
-        <mesh position={[0, 0, 0.28]} castShadow>
-          <boxGeometry args={[0.08, 2.1, 0.08]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.32} />
-        </mesh>
-        <mesh position={[0, 1.05, 0]} castShadow>
-          <boxGeometry args={[0.08, 0.08, 0.64]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.32} />
-        </mesh>
-        <mesh position={[0.01, 0, 0]}>
-          <boxGeometry args={[0.015, 2.0, 0.48]} />
-          <meshPhysicalMaterial color="#DCE8F2" transmission={0.86} thickness={0.25} roughness={0.1} transparent />
-        </mesh>
-      </group>
-      <mesh position={[0.88, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[0.05, 3]} />
-        <meshStandardMaterial color="#FEFEFE" roughness={0.62} />
-      </mesh>
-    </group>
-  );
-}
-
-// 購物中心場景
-function ShoppingMallScene() {
-  return (
-    <group>
-      <mesh position={[0, -0.005, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshPhysicalMaterial color="#EAE2D8" metalness={0.22} roughness={0.42} clearcoat={0.95} clearcoatRoughness={0.08} />
-      </mesh>
-      <group position={[0.8, 1.1, 0]}>
-        <mesh position={[0, 0, -0.3]} castShadow>
-          <boxGeometry args={[0.08, 2.2, 0.08]} />
-          <meshPhysicalMaterial color="#8D7558" metalness={0.86} roughness={0.18} />
-        </mesh>
-        <mesh position={[0, 0, 0.3]} castShadow>
-          <boxGeometry args={[0.08, 2.2, 0.08]} />
-          <meshPhysicalMaterial color="#8D7558" metalness={0.86} roughness={0.18} />
-        </mesh>
-        <mesh position={[0, 1.1, 0]} castShadow>
-          <boxGeometry args={[0.08, 0.08, 0.68]} />
-          <meshPhysicalMaterial color="#8D7558" metalness={0.86} roughness={0.18} />
-        </mesh>
-        <mesh position={[0.01, 0, 0]}>
-          <boxGeometry args={[0.015, 2.1, 0.52]} />
-          <meshPhysicalMaterial color="#C2D8E8" transmission={0.88} thickness={0.25} roughness={0.06} transparent />
-        </mesh>
-      </group>
-      <mesh position={[0.88, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[0.05, 3]} />
-        <meshStandardMaterial color="#F2EADF" roughness={0.72} />
-      </mesh>
-    </group>
-  );
-}
-
-// 場景環境選擇器
-function SceneEnvironment({ scene }: { scene: ShowcaseScene }) {
-  switch (scene.id) {
-    case 'corporate-office':
-      return <CorporateOfficeScene />;
-    case 'luxury-hotel':
-      return <LuxuryHotelScene />;
-    case 'airport-terminal':
-      return <AirportTerminalScene />;
-    case 'tech-park':
-      return <TechParkScene />;
-    case 'medical-center':
-      return <MedicalCenterScene />;
-    case 'shopping-mall':
-      return <ShoppingMallScene />;
-    default:
-      return <CorporateOfficeScene />;
-  }
-}
 
 // 主場景組件
 interface MatScene3DProps {
@@ -580,11 +314,11 @@ export default function MatScene3D({
           powerPreference: 'high-performance'
         }}
       >
-        {/* 相機設置 - 聚焦地墊（適配新尺寸）*/}
+        {/* 相機設置 - 室內俯視角度 */}
         <PerspectiveCamera
           makeDefault
-          position={[-0.8, 0.6, 0.8]}
-          fov={50}
+          position={[0.4, 1.4, -2.5]}
+          fov={55}
         />
 
         {/* 軌道控制器 */}
@@ -592,10 +326,10 @@ export default function MatScene3D({
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
-          minDistance={0.8}
-          maxDistance={3.5}
-          maxPolarAngle={Math.PI / 2.3}
-          target={[0, 0.01, 0]}
+          minDistance={1.5}
+          maxDistance={5.0}
+          maxPolarAngle={Math.PI / 2.2}
+          target={[0, 0.01, 0.2]}
           enableDamping={true}
           dampingFactor={0.1}
         />
@@ -623,11 +357,8 @@ export default function MatScene3D({
         <pointLight position={[-5, 5, -5]} intensity={0.4} />
         <pointLight position={[5, 3, 5]} intensity={0.3} />
 
-        {/* 主要地墊模型 */}
-        <EntranceMat scene={scene} material={material} />
-
-        {/* 場景環境 */}
-        <SceneEnvironment scene={scene} />
+        {/* 室內入口場景（包含嵌入式地墊）*/}
+        <IndoorEntranceScene />
 
         {/* 接觸陰影 */}
         <ContactShadows
