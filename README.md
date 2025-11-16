@@ -167,7 +167,17 @@ npm run lint
 
 ## 📝 內容管理
 
-### 添加工程實績
+### 🎯 給非技術人員
+
+**如果您不是工程師**，請直接閱讀以下文檔：
+
+1. **[📘 非技術人員完全指南](./docs/NON_TECHNICAL_GUIDE.md)** - 零基礎也能上手
+2. **[🤖 AI 協助維護指南](./docs/AI_ASSISTANT_GUIDE.md)** - 使用 Claude/ChatGPT 管理內容
+3. **[📋 內容管理範例](./docs/CONTENT_EXAMPLES.md)** - 複製貼上即可用的模板
+
+### 🛠️ 給技術人員
+
+#### 添加工程實績
 
 編輯 `src/data/projects.ts`：
 
@@ -201,11 +211,11 @@ npm run lint
 }
 ```
 
-### 更新公司資訊
+#### 更新公司資訊
 
 編輯 `src/const.ts` 或 `src/data/cms-config.ts`
 
-### 更新 YouTube 影片
+#### 更新 YouTube 影片
 
 編輯 `src/data/youtube-videos.ts`
 
@@ -374,9 +384,18 @@ npm run build
 
 ## 📚 相關文檔
 
-- [維護指南](./docs/MAINTENANCE_GUIDE.md) - 詳細的內容管理指南
+### 📖 給所有使用者
+
+- **[📘 非技術人員完全指南](./docs/NON_TECHNICAL_GUIDE.md)** ⭐ 推薦老闆閱讀
+- **[🤖 AI 協助維護指南](./docs/AI_ASSISTANT_GUIDE.md)** ⭐ 使用 AI 管理內容
+- **[📋 內容管理範例](./docs/CONTENT_EXAMPLES.md)** - 現成模板
 - [快速開始](./docs/QUICK_START.md) - 5分鐘快速上手
+
+### 🔧 給技術人員
+
+- [維護指南](./docs/MAINTENANCE_GUIDE.md) - 詳細的內容管理指南
 - [YouTube 更新指南](./docs/YOUTUBE_ID_UPDATE_GUIDE.md) - YouTube 影片更新
+- [圖片管理指南](./docs/IMAGE_MANAGEMENT.md) - 圖片處理方式
 
 ---
 
@@ -417,11 +436,26 @@ npm run build
 
 ---
 
-**版本**：1.0.0
+**版本**：1.1.0
 
 **最後更新**：2025 年 1 月
 
 **維護者**：易潔寶開發團隊
+
+---
+
+## 📝 最新更新
+
+### 2025-01-16
+- ✅ 新增玉山系列 ES302 和雪山系列 SM305 產品框架
+- ✅ 整合 10 個官方部落格案場（中臺灣電影中心、廣源良、時代州廳等）
+- ✅ 新增《非技術人員完全指南》
+- ✅ 新增《AI 協助維護指南》
+- ✅ 新增《內容管理範例與模板》
+
+### 資料來源
+- 官方部落格：https://www.178mat.com/
+- 搜尋並整合多個官方案場與產品資訊
 
 ## 🖼️ 圖片管理
 
