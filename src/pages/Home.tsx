@@ -317,6 +317,90 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 3D 展示宣傳區塊 - 新功能 */}
+      <section className="relative py-24 bg-gradient-to-br from-primary via-primary/90 to-primary-dark overflow-hidden">
+        {/* 背景裝飾 */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            className="max-w-4xl mx-auto text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Badge className="mb-6 bg-white/20 text-white hover:bg-white/30 border-white/30 text-lg px-6 py-2">
+              ✨ 全新功能
+            </Badge>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              3D 互動展示間
+            </h2>
+            <p className="text-xl md:text-2xl text-white/90 mb-4">
+              沉浸式體驗鋁合金除泥地墊在真實場景的應用
+            </p>
+            <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
+              探索飯店、機場、辦公大樓等六大專業場景，即時切換材質、查看技術規格，體驗國際水準的 3D 可視化展示
+            </p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <Link href="/showcase-3d">
+                <Button
+                  size="lg"
+                  className="bg-white text-primary hover:bg-white/90 shadow-2xl font-bold text-lg px-8 py-6 h-auto group"
+                >
+                  立即體驗 3D 展示
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/products">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary text-lg px-8 py-6 h-auto"
+                >
+                  查看產品型錄
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* 特色標籤 */}
+            <motion.div
+              className="mt-12 flex flex-wrap justify-center gap-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              {[
+                '6 個專業場景',
+                '360° 全視角展示',
+                '即時材質切換',
+                '技術規格標註',
+                '國際品牌對比',
+                'BIM 模型下載',
+              ].map((feature, index) => (
+                <div
+                  key={index}
+                  className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm border border-white/20"
+                >
+                  {feature}
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 服務介紹區塊 - 改進設計 */}
       <section className="py-20 bg-background blueprint-bg">
         <div className="container mx-auto px-4">

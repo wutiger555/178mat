@@ -14,6 +14,7 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
+import Showcase3D from "./pages/Showcase3D";
 
 // 配置 GitHub Pages base path
 const basePath = import.meta.env.BASE_URL.slice(0, -1) || "";
@@ -46,6 +47,7 @@ function Router() {
           <Route path="/projects" component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
           <Route path="/products" component={Products} />
+          <Route path="/showcase-3d" component={Showcase3D} />
           <Route path="/contact" component={Contact} />
           <Route path="/404" component={NotFound} />
           {/* Final fallback route */}
