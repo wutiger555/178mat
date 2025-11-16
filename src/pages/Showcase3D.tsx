@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Building2,
@@ -75,23 +75,12 @@ export default function Showcase3D() {
         <section className="relative h-screen w-full">
           {/* 3D Canvas Container */}
           <div className={`${isFullscreen ? 'fixed inset-0 z-50' : 'absolute inset-0'}`}>
-            <Suspense
-              fallback={
-                <div className="flex h-full items-center justify-center bg-gradient-to-b from-blue-50 to-white">
-                  <div className="text-center">
-                    <div className="mb-4 inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
-                    <p className="text-lg text-neutral-600">載入 3D 場景中...</p>
-                  </div>
-                </div>
-              }
-            >
-              <MatScene3D
-                scene={selectedScene}
-                material={selectedMaterial}
-                showGrid={showGrid}
-                showMeasurements={showMeasurements}
-              />
-            </Suspense>
+            <MatScene3D
+              scene={selectedScene}
+              material={selectedMaterial}
+              showGrid={showGrid}
+              showMeasurements={showMeasurements}
+            />
           </div>
 
           {/* Scene Selector - Left Sidebar */}

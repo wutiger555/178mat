@@ -1,75 +1,209 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Grid, Environment, ContactShadows } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, ContactShadows } from '@react-three/drei';
 import { ShowcaseScene, MaterialType } from '@/data/showcase-scenes';
 import * as THREE from 'three';
 
-// 鋁合金地墊 3D 模型組件
-function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: MaterialType }) {
-  const groupRef = useRef<THREE.Group>(null);
-
-  // 地墊尺寸（公尺）
-  const matWidth = 3; // 3公尺寬
-  const matLength = 6; // 6公尺長
-  const matDepth = parseFloat(scene.matSystem.depth) / 1000; // 轉換為公尺
+// 單條鋁合金條組件（含凹槽結構）
+function AluminumRail({
+  position,
+  surfaceType,
+  surfaceColor
+}: {
+  position: [number, number, number];
+  surfaceType: 'ribbed' | 'fiber';
+  surfaceColor: string;
+}) {
+  // 尺寸參數（單位：公尺）
+  const railLength = 6.0;  // 6公尺長
+  const railWidth = 0.05;   // 50mm寬
+  const railHeight = 0.018; // 18mm高
+  const grooveDepth = 0.011; // 凹槽深11mm
+  const wallThickness = 0.002; // 側壁厚2mm
 
   // 鋁框顏色
-  const frameColor = scene.matSystem.frame.includes('不鏽鋼') ? '#E8E8E8' : '#C0C0C0';
-
-  // 面料顏色
-  const getSurfaceColor = () => {
-    if (material) return material.color;
-    if (scene.matSystem.surface.includes('灰色')) return '#808080';
-    if (scene.matSystem.surface.includes('黑色')) return '#2D2D2D';
-    if (scene.matSystem.surface.includes('多色')) return '#4A5568';
-    if (scene.matSystem.surface.includes('止滑膠條')) return '#1A1A1A';
-    return '#606060';
-  };
+  const aluminumColor = '#C0C0C0';
 
   return (
-    <group ref={groupRef} position={[0, matDepth / 2, 0]}>
-      {/* 鋁合金外框 */}
-      <mesh position={[0, 0, 0]} receiveShadow castShadow>
-        <boxGeometry args={[matWidth + 0.1, matDepth, matLength + 0.1]} />
+    <group position={position}>
+      {/* 底板 */}
+      <mesh receiveShadow castShadow position={[0, (railHeight - grooveDepth) / 2, 0]}>
+        <boxGeometry args={[railWidth, railHeight - grooveDepth, railLength]} />
         <meshPhysicalMaterial
-          color={frameColor}
+          color={aluminumColor}
           metalness={0.9}
           roughness={0.2}
           reflectivity={0.8}
-          clearcoat={0.3}
         />
       </mesh>
 
-      {/* 地墊面料 */}
-      <mesh position={[0, matDepth * 0.3, 0]} receiveShadow castShadow>
-        <boxGeometry args={[matWidth - 0.05, matDepth * 0.6, matLength - 0.05]} />
+      {/* 左側壁 */}
+      <mesh receiveShadow castShadow position={[-railWidth/2 + wallThickness/2, railHeight/2 - grooveDepth/2, 0]}>
+        <boxGeometry args={[wallThickness, grooveDepth, railLength]} />
         <meshPhysicalMaterial
-          color={getSurfaceColor()}
-          metalness={0.1}
-          roughness={scene.matSystem.surface.includes('毛刷') ? 0.9 : 0.7}
-          clearcoat={scene.matSystem.surface.includes('膠條') ? 0.5 : 0}
+          color={aluminumColor}
+          metalness={0.9}
+          roughness={0.2}
+          reflectivity={0.8}
         />
       </mesh>
 
-      {/* 鋁條紋理（模擬多條鋁軌）*/}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <mesh
-          key={i}
-          position={[
-            -matWidth / 2 + (i * matWidth) / 20 + 0.075,
-            matDepth * 0.5,
-            0,
-          ]}
-          receiveShadow
-          castShadow
-        >
-          <boxGeometry args={[0.05, matDepth * 0.1, matLength - 0.1]} />
+      {/* 右側壁 */}
+      <mesh receiveShadow castShadow position={[railWidth/2 - wallThickness/2, railHeight/2 - grooveDepth/2, 0]}>
+        <boxGeometry args={[wallThickness, grooveDepth, railLength]} />
+        <meshPhysicalMaterial
+          color={aluminumColor}
+          metalness={0.9}
+          roughness={0.2}
+          reflectivity={0.8}
+        />
+      </mesh>
+
+      {/* 表面模組 */}
+      {surfaceType === 'ribbed' ? (
+        // 細條狀刮泥面（橡膠肋條）
+        <group position={[0, railHeight/2 + 0.002, 0]}>
+          {Array.from({ length: 16 }).map((_, i) => {
+            const ribWidth = 0.002;
+            const ribHeight = 0.003;
+            const spacing = (railWidth - wallThickness * 2) / 16;
+            const xPos = -railWidth/2 + wallThickness + spacing * i + spacing/2;
+
+            return (
+              <mesh key={i} position={[xPos, 0, 0]} receiveShadow castShadow>
+                <boxGeometry args={[ribWidth, ribHeight, railLength - 0.01]} />
+                <meshPhysicalMaterial
+                  color={surfaceColor}
+                  metalness={0.1}
+                  roughness={0.9}
+                  clearcoat={0.3}
+                />
+              </mesh>
+            );
+          })}
+        </group>
+      ) : (
+        // 纖維絨毛面
+        <mesh position={[0, railHeight/2 + 0.001, 0]} receiveShadow castShadow>
+          <boxGeometry args={[railWidth - wallThickness * 2 - 0.001, 0.004, railLength - 0.01]} />
           <meshPhysicalMaterial
-            color={frameColor}
-            metalness={0.95}
-            roughness={0.15}
-            reflectivity={0.9}
+            color={surfaceColor}
+            metalness={0.05}
+            roughness={0.95}
+            clearcoat={0}
           />
+        </mesh>
+      )}
+    </group>
+  );
+}
+
+// 完整鋁合金地墊組件
+function EntranceMat({ scene, material }: { scene: ShowcaseScene; material?: MaterialType }) {
+  const groupRef = useRef<THREE.Group>(null);
+
+  // 地墊整體參數
+  const numRails = 7;  // 7條鋁條
+  const railWidth = 0.05;  // 50mm
+  const gapWidth = 0.0025; // 2.5mm間隙
+  const totalWidth = numRails * railWidth + (numRails - 1) * gapWidth;
+
+  // 根據場景和材質決定顏色配置
+  const railConfigs = useMemo(() => {
+    const configs = [];
+
+    if (scene.matSystem.surface.includes('多色')) {
+      // 多色配置
+      configs.push(
+        { type: 'fiber' as const, color: '#606060' }, // 灰
+        { type: 'fiber' as const, color: '#8B4513' }, // 咖啡
+        { type: 'ribbed' as const, color: '#1A1A1A' }, // 黑色刮泥
+        { type: 'fiber' as const, color: '#B8382D' }, // 紅
+        { type: 'fiber' as const, color: '#606060' }, // 灰
+        { type: 'fiber' as const, color: '#8B4513' }, // 咖啡
+        { type: 'ribbed' as const, color: '#1A1A1A' }  // 黑色刮泥
+      );
+    } else if (scene.matSystem.surface.includes('止滑膠條')) {
+      // 全刮泥條配置
+      for (let i = 0; i < numRails; i++) {
+        configs.push({ type: 'ribbed' as const, color: '#1A1A1A' });
+      }
+    } else {
+      // 單色纖維配置
+      const color = material?.color || (
+        scene.matSystem.surface.includes('灰色') ? '#808080' :
+        scene.matSystem.surface.includes('黑色') ? '#2D2D2D' :
+        scene.matSystem.surface.includes('棕') ? '#8B4513' : '#606060'
+      );
+      for (let i = 0; i < numRails; i++) {
+        configs.push({ type: 'fiber' as const, color });
+      }
+    }
+
+    return configs;
+  }, [scene, material, numRails]);
+
+  return (
+    <group ref={groupRef}>
+      {/* 鋁條陣列 */}
+      {railConfigs.map((config, i) => {
+        const xPos = -totalWidth / 2 + (railWidth / 2) + i * (railWidth + gapWidth);
+        return (
+          <AluminumRail
+            key={i}
+            position={[xPos, 0.009, 0]}
+            surfaceType={config.type}
+            surfaceColor={config.color}
+          />
+        );
+      })}
+
+      {/* 橡膠間隔條 */}
+      {Array.from({ length: numRails - 1 }).map((_, i) => {
+        const xPos = -totalWidth / 2 + railWidth + i * (railWidth + gapWidth) + gapWidth / 2;
+        return (
+          <mesh key={`gap-${i}`} position={[xPos, 0.009, 0]} receiveShadow>
+            <boxGeometry args={[gapWidth, 0.016, 6.0]} />
+            <meshStandardMaterial color="#1A1A1A" metalness={0.2} roughness={0.8} />
+          </mesh>
+        );
+      })}
+
+      {/* 前端收邊板 */}
+      <mesh position={[0, 0.009, -3.02]} receiveShadow castShadow>
+        <boxGeometry args={[totalWidth + 0.01, 0.003, 0.04]} />
+        <meshPhysicalMaterial
+          color="#C0C0C0"
+          metalness={0.9}
+          roughness={0.2}
+          reflectivity={0.8}
+        />
+      </mesh>
+
+      {/* 後端收邊板 */}
+      <mesh position={[0, 0.009, 3.02]} receiveShadow castShadow>
+        <boxGeometry args={[totalWidth + 0.01, 0.003, 0.04]} />
+        <meshPhysicalMaterial
+          color="#C0C0C0"
+          metalness={0.9}
+          roughness={0.2}
+          reflectivity={0.8}
+        />
+      </mesh>
+
+      {/* 螺絲孔（前端收邊板） */}
+      {[-totalWidth/3, 0, totalWidth/3].map((xPos, i) => (
+        <mesh key={`screw-front-${i}`} position={[xPos, 0.0105, -3.02]} castShadow>
+          <cylinderGeometry args={[0.003, 0.003, 0.002, 16]} />
+          <meshStandardMaterial color="#4A4A4A" metalness={0.6} roughness={0.3} />
+        </mesh>
+      ))}
+
+      {/* 螺絲孔（後端收邊板） */}
+      {[-totalWidth/3, 0, totalWidth/3].map((xPos, i) => (
+        <mesh key={`screw-back-${i}`} position={[xPos, 0.0105, 3.02]} castShadow>
+          <cylinderGeometry args={[0.003, 0.003, 0.002, 16]} />
+          <meshStandardMaterial color="#4A4A4A" metalness={0.6} roughness={0.3} />
         </mesh>
       ))}
     </group>
@@ -91,7 +225,7 @@ function BuildingEntrance({ scene }: { scene: ShowcaseScene }) {
       </mesh>
 
       {/* 門框（簡化表示）*/}
-      <group position={[0, 2.5, -3]}>
+      <group position={[0, 2.5, -3.5]}>
         {/* 左門柱 */}
         <mesh position={[-2, 0, 0]} castShadow>
           <boxGeometry args={[0.3, 5, 0.3]} />
@@ -110,7 +244,7 @@ function BuildingEntrance({ scene }: { scene: ShowcaseScene }) {
       </group>
 
       {/* 玻璃門（透明效果）*/}
-      <mesh position={[0, 2, -2.85]} castShadow>
+      <mesh position={[0, 2, -3.35]} castShadow>
         <boxGeometry args={[4, 4, 0.1]} />
         <meshPhysicalMaterial
           color="#87CEEB"
@@ -142,7 +276,16 @@ export default function MatScene3D({
 }: MatScene3DProps) {
   return (
     <div className="w-full h-full">
-      <Canvas shadows dpr={[1, 2]} className="bg-gradient-to-b from-blue-50 to-white">
+      <Canvas
+        shadows
+        dpr={[1, 2]}
+        className="bg-gradient-to-b from-blue-50 to-white"
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
+      >
         {/* 相機設置 */}
         <PerspectiveCamera
           makeDefault
@@ -159,15 +302,18 @@ export default function MatScene3D({
           maxDistance={20}
           maxPolarAngle={Math.PI / 2 - 0.1}
           target={[0, 0, 0]}
+          enableDamping={true}
+          dampingFactor={0.05}
         />
 
         {/* 環境光 */}
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.6} />
+        <hemisphereLight intensity={0.4} groundColor="#444444" />
 
         {/* 主光源 */}
         <directionalLight
           position={[10, 10, 5]}
-          intensity={1}
+          intensity={1.2}
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
@@ -176,14 +322,12 @@ export default function MatScene3D({
           shadow-camera-right={10}
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
+          shadow-bias={-0.0001}
         />
 
         {/* 補光 */}
-        <pointLight position={[-5, 5, -5]} intensity={0.3} />
-        <pointLight position={[5, 3, 5]} intensity={0.2} />
-
-        {/* 環境貼圖 */}
-        <Environment preset="city" />
+        <pointLight position={[-5, 5, -5]} intensity={0.4} />
+        <pointLight position={[5, 3, 5]} intensity={0.3} />
 
         {/* 主要地墊模型 */}
         <EntranceMat scene={scene} material={material} />
@@ -194,38 +338,31 @@ export default function MatScene3D({
         {/* 接觸陰影 */}
         <ContactShadows
           position={[0, 0, 0]}
-          opacity={0.4}
+          opacity={0.35}
           scale={15}
-          blur={2}
+          blur={2.5}
           far={4}
         />
 
         {/* 網格輔助線 */}
         {showGrid && (
-          <Grid
-            args={[20, 20]}
-            cellSize={1}
-            cellThickness={0.5}
-            cellColor="#6B7280"
-            sectionSize={5}
-            sectionThickness={1}
-            sectionColor="#374151"
-            fadeDistance={25}
-            fadeStrength={1}
-            position={[0, -0.02, 0]}
-          />
+          <gridHelper args={[20, 20, '#666666', '#888888']} position={[0, -0.01, 0]} />
         )}
 
-        {/* 尺寸標註（簡化版，避免 Text 組件問題）*/}
+        {/* 尺寸標註 */}
         {showMeasurements && (
           <group>
-            {/* 寬度標註線 */}
+            {/* 長度標註線 */}
             <mesh position={[0, 0.05, -3.2]}>
-              <boxGeometry args={[3, 0.02, 0.02]} />
+              <boxGeometry args={[0.4, 0.02, 0.02]} />
               <meshBasicMaterial color="#0066CC" />
             </mesh>
-            {/* 長度標註線 */}
-            <mesh position={[3.2, 0.05, 0]} rotation={[0, Math.PI / 2, 0]}>
+            <mesh position={[0, 0.05, 3.2]}>
+              <boxGeometry args={[0.4, 0.02, 0.02]} />
+              <meshBasicMaterial color="#0066CC" />
+            </mesh>
+            {/* 寬度標註線 */}
+            <mesh position={[-0.2, 0.05, 0]} rotation={[0, Math.PI / 2, 0]}>
               <boxGeometry args={[6, 0.02, 0.02]} />
               <meshBasicMaterial color="#0066CC" />
             </mesh>
