@@ -15,6 +15,10 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import Showcase3D from "./pages/Showcase3D";
+// 管理後台
+import Dashboard from "./admin/pages/Dashboard";
+import ProjectsManager from "./admin/pages/ProjectsManager";
+import ProductsManager from "./admin/pages/ProductsManager";
 
 // 配置 GitHub Pages base path
 const basePath = import.meta.env.BASE_URL.slice(0, -1) || "";
@@ -35,12 +39,21 @@ function ScrollToTop() {
 }
 
 function Router() {
+  const [location] = useLocation();
+  const isAdminRoute = location.startsWith('/admin');
+
   return (
     <WouterRouter base={basePath}>
       <ScrollToTop />
-      <Navbar />
-      <main className="pt-20">
+      {!isAdminRoute && <Navbar />}
+      <main className={!isAdminRoute ? "pt-20" : ""}>
         <Switch>
+          {/* 管理後台路由 */}
+          <Route path="/admin" component={Dashboard} />
+          <Route path="/admin/projects" component={ProjectsManager} />
+          <Route path="/admin/products" component={ProductsManager} />
+
+          {/* 一般網站路由 */}
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/services" component={Services} />
@@ -54,7 +67,7 @@ function Router() {
           <Route component={NotFound} />
         </Switch>
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </WouterRouter>
   );
 }
