@@ -1,0 +1,12 @@
+{
+  "navItems": [
+    { "id": "home", "label": "首頁", "href": "/", "visible": true },
+    { "id": "about", "label": "關於我們", "href": "/about", "visible": true },
+    { "id": "services", "label": "服務項目", "href": "/services", "visible": true },
+    { "id": "projects", "label": "工程實績", "href": "/projects", "visible": true },
+    { "id": "products", "label": "產品型錄", "href": "/products", "visible": true },
+    { "id": "showcase-3d", "label": "3D 展示", "href": "/showcase-3d", "visible": true },
+    { "id": "contact", "label": "聯絡我們", "href": "/contact", "visible": true }
+  ],
+  "lastUpdated": "2024-01-01T00:00:00.000Z"
+}

@@ -5,9 +5,11 @@
 import { useCMSData } from '../hooks/useCMSData';
 import AdminLayout from '../components/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FolderOpen, Package, Image, Calendar } from 'lucide-react';
+import { FolderOpen, Package, Image, Calendar, Download, FileDown } from 'lucide-react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
+import { exportAllData } from '../utils/storage';
+import { toast } from 'sonner';
 
 export default function Dashboard() {
   const { data, loading, exportData, importData, reset } = useCMSData();
@@ -39,6 +41,17 @@ export default function Dashboard() {
     if (confirm('確定要重置所有資料？此操作無法復原。')) {
       reset();
       alert('資料已重置');
+    }
+  };
+
+  const handleExportAll = () => {
+    try {
+      exportAllData();
+      toast.success('所有資料已匯出！請將檔案放到 public/data/ 目錄後提交到 GitHub', {
+        duration: 5000,
+      });
+    } catch (error) {
+      toast.error('匯出失敗，請稍後再試');
     }
   };
 
@@ -173,6 +186,39 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
+        {/* 發布到網站 */}
+        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+          <CardHeader>
+            <CardTitle className="text-green-900 flex items-center gap-2">
+              <FileDown className="w-6 h-6" />
+              發布更新到網站
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-green-800">
+              完成編輯後，點擊下方按鈕匯出所有資料，然後按照說明同步到網站。
+            </p>
+            <Button
+              onClick={handleExportAll}
+              className="w-full bg-green-600 hover:bg-green-700 text-white gap-2"
+              size="lg"
+            >
+              <Download className="w-5 h-5" />
+              匯出所有資料（CMS + 地圖 + 設定）
+            </Button>
+            <div className="bg-white rounded-lg p-4 text-sm text-green-900 space-y-2">
+              <p className="font-semibold">📝 發布步驟：</p>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li>點擊上方按鈕，下載 <code className="bg-green-100 px-1 rounded">cms-data.json</code> 和 <code className="bg-green-100 px-1 rounded">website-settings.json</code></li>
+                <li>將下載的檔案放到專案的 <code className="bg-green-100 px-1 rounded">public/data/</code> 目錄（取代舊檔案）</li>
+                <li>在終端機執行：<code className="bg-green-100 px-1 rounded">git add . && git commit -m "更新網站內容" && git push</code></li>
+                <li>等待 GitHub Actions 自動部署（約 2-3 分鐘）</li>
+                <li>完成！所有人都能看到更新後的內容</li>
+              </ol>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* 使用說明 */}
         <Card className="bg-blue-50 border-blue-200">
           <CardHeader>
@@ -180,9 +226,10 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="text-blue-800 space-y-2">
             <p>1. 在管理後台編輯完內容後，資料會自動儲存到瀏覽器</p>
-            <p>2. 定期使用「匯出資料」功能備份您的內容</p>
-            <p>3. 編輯完成後，需要重新執行 <code className="bg-blue-100 px-2 py-1 rounded">npm run build</code> 才能發布到網站</p>
-            <p>4. 如果資料有誤，可以使用「匯入資料」還原之前的備份</p>
+            <p>2. 編輯時的資料只存在你的電腦上（LocalStorage）</p>
+            <p>3. 必須使用「匯出資料」功能並提交到 GitHub 才會發布到網站</p>
+            <p>4. 網站部署後會優先讀取 <code className="bg-blue-100 px-1 rounded">public/data/</code> 中的檔案</p>
+            <p>5. 定期備份資料以防意外</p>
           </CardContent>
         </Card>
       </div>

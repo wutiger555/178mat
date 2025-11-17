@@ -29,14 +29,30 @@ export default function Navbar() {
 
   // 載入導航設定
   useEffect(() => {
-    const loadNavSettings = () => {
+    const loadNavSettings = async () => {
       try {
-        const settings = localStorage.getItem('website_settings');
-        if (settings) {
-          const parsed = JSON.parse(settings);
+        // 1. 優先從 localStorage 讀取（編輯模式）
+        const localSettings = localStorage.getItem('website_settings');
+        if (localSettings) {
+          const parsed = JSON.parse(localSettings);
           if (parsed.navItems && Array.isArray(parsed.navItems)) {
-            // 只顯示 visible 為 true 的導航項
             const visibleItems = parsed.navItems
+              .filter((item: any) => item.visible)
+              .map((item: any) => ({
+                href: item.href,
+                label: item.label,
+              }));
+            setNavItems(visibleItems);
+            return;
+          }
+        }
+
+        // 2. 從檔案讀取（已發布的設定）
+        const response = await fetch('/178mat/data/website-settings.json');
+        if (response.ok) {
+          const fileSettings = await response.json();
+          if (fileSettings.navItems && Array.isArray(fileSettings.navItems)) {
+            const visibleItems = fileSettings.navItems
               .filter((item: any) => item.visible)
               .map((item: any) => ({
                 href: item.href,

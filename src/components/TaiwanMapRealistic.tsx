@@ -63,21 +63,44 @@ export default function TaiwanMapRealistic() {
   const [countyData, setCountyData] = useState<Record<string, number>>(DEFAULT_COUNTY_DATA);
   const [loading, setLoading] = useState(true);
 
-  // 從 localStorage 載入資料
+  // 從 localStorage 或檔案載入資料
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const locations = JSON.parse(stored);
-        const dataMap: Record<string, number> = {};
-        locations.forEach((loc: any) => {
-          dataMap[loc.id] = loc.count;
-        });
-        setCountyData(dataMap);
-      } catch (e) {
-        console.error('Failed to parse map data:', e);
+    const loadMapData = async () => {
+      // 1. 優先從 localStorage 讀取（編輯模式）
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          const locations = JSON.parse(stored);
+          const dataMap: Record<string, number> = {};
+          locations.forEach((loc: any) => {
+            dataMap[loc.id] = loc.count;
+          });
+          setCountyData(dataMap);
+          return;
+        } catch (e) {
+          console.error('Failed to parse map data:', e);
+        }
       }
-    }
+
+      // 2. 從檔案讀取（已發布的資料）
+      try {
+        const response = await fetch('/178mat/data/cms-data.json');
+        if (response.ok) {
+          const fileData = await response.json();
+          if (fileData.mapLocations && Array.isArray(fileData.mapLocations)) {
+            const dataMap: Record<string, number> = {};
+            fileData.mapLocations.forEach((loc: any) => {
+              dataMap[loc.id] = loc.count;
+            });
+            setCountyData(dataMap);
+          }
+        }
+      } catch (e) {
+        console.log('No published map data found, using defaults');
+      }
+    };
+
+    loadMapData();
   }, []);
 
   // 計算顏色
