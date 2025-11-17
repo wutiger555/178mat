@@ -38,6 +38,7 @@ export default function AdminLayout({
     { path: '/admin/products', label: '產品管理', icon: Package },
     { path: '/admin/media', label: '媒體庫', icon: Image },
     { path: '/admin/map', label: '地圖管理', icon: MapPin },
+    { path: '/admin/settings', label: '網站設定', icon: Settings },
   ];
 
   return (

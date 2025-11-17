@@ -9,6 +9,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [navItems, setNavItems] = useState([
+    { href: "/", label: "首頁" },
+    { href: "/about", label: "關於我們" },
+    { href: "/services", label: "服務項目" },
+    { href: "/projects", label: "工程實績" },
+    { href: "/products", label: "產品型錄" },
+    { href: "/showcase-3d", label: "3D 展示" },
+    { href: "/contact", label: "聯絡我們" },
+  ]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,15 +27,41 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { href: "/", label: "首頁" },
-    { href: "/about", label: "關於我們" },
-    { href: "/services", label: "服務項目" },
-    { href: "/projects", label: "工程實績" },
-    { href: "/products", label: "產品型錄" },
-    { href: "/showcase-3d", label: "3D 展示" },
-    { href: "/contact", label: "聯絡我們" },
-  ];
+  // 載入導航設定
+  useEffect(() => {
+    const loadNavSettings = () => {
+      try {
+        const settings = localStorage.getItem('website_settings');
+        if (settings) {
+          const parsed = JSON.parse(settings);
+          if (parsed.navItems && Array.isArray(parsed.navItems)) {
+            // 只顯示 visible 為 true 的導航項
+            const visibleItems = parsed.navItems
+              .filter((item: any) => item.visible)
+              .map((item: any) => ({
+                href: item.href,
+                label: item.label,
+              }));
+            setNavItems(visibleItems);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to load nav settings:', e);
+      }
+    };
+
+    loadNavSettings();
+
+    // 監聽 storage 事件，當設定更新時自動重新載入
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'website_settings') {
+        loadNavSettings();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const isActive = (href: string) => {
     if (href === "/") return location === "/";
