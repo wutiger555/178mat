@@ -5,14 +5,20 @@
 import { useState } from 'react';
 import { useCMSData } from '../hooks/useCMSData';
 import AdminLayout from '../components/AdminLayout';
+import ProductForm from '../components/ProductForm';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Plus, Edit, Trash2, Search, Tag } from 'lucide-react';
+import { Product } from '@/data/products';
+import { toast } from 'sonner';
 
 export default function ProductsManager() {
-  const { data, loading, deleteProduct, exportData } = useCMSData();
+  const { data, loading, deleteProduct, addProduct, updateProduct, exportData } = useCMSData();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
 
   if (loading) {
     return (
@@ -45,7 +51,31 @@ export default function ProductsManager() {
   const handleDelete = (productId: string) => {
     if (confirm('確定要刪除此產品？')) {
       deleteProduct(productId);
+      toast.success('產品已刪除');
     }
+  };
+
+  const handleCreate = () => {
+    setSelectedProduct(null);
+    setFormMode('create');
+    setFormOpen(true);
+  };
+
+  const handleEdit = (product: Product) => {
+    setSelectedProduct(product);
+    setFormMode('edit');
+    setFormOpen(true);
+  };
+
+  const handleSave = (product: Product) => {
+    if (formMode === 'create') {
+      addProduct(product);
+      toast.success('產品已新增');
+    } else {
+      updateProduct(product.id, product);
+      toast.success('產品已更新');
+    }
+    setFormOpen(false);
   };
 
   return (
@@ -57,7 +87,7 @@ export default function ProductsManager() {
             <h2 className="text-3xl font-bold text-gray-900">產品管理</h2>
             <p className="text-gray-600 mt-1">管理產品型錄與規格</p>
           </div>
-          <Button className="gap-2 bg-[#C4A052] hover:bg-[#B39048]">
+          <Button className="gap-2 bg-[#C4A052] hover:bg-[#B39048]" onClick={handleCreate}>
             <Plus className="w-4 h-4" />
             新增產品
           </Button>
@@ -159,7 +189,12 @@ export default function ProductsManager() {
 
                   {/* 操作按鈕 */}
                   <div className="flex gap-2 pt-4 border-t">
-                    <Button variant="outline" size="sm" className="flex-1 gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 gap-2"
+                      onClick={() => handleEdit(product)}
+                    >
                       <Edit className="w-4 h-4" />
                       編輯
                     </Button>
@@ -189,6 +224,15 @@ export default function ProductsManager() {
           </Card>
         )}
       </div>
+
+      {/* 編輯表單 */}
+      <ProductForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        product={selectedProduct}
+        onSave={handleSave}
+        mode={formMode}
+      />
     </AdminLayout>
   );
 }

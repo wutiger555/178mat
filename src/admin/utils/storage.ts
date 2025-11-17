@@ -5,6 +5,7 @@
 
 import { Project } from '@/data/projects';
 import { Product } from '@/data/products';
+import { YouTubeVideo } from '@/data/youtube-videos';
 
 export interface CMSData {
   lastUpdated: string;
@@ -13,15 +14,6 @@ export interface CMSData {
   products: Product[];
   youtubeVideos: YouTubeVideo[];
   settings: CMSSettings;
-}
-
-export interface YouTubeVideo {
-  id: string;
-  title: string;
-  videoId: string;
-  description?: string;
-  thumbnail?: string;
-  category?: string;
 }
 
 export interface CMSSettings {

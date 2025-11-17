@@ -5,16 +5,20 @@
 import { useState } from 'react';
 import { useCMSData } from '../hooks/useCMSData';
 import AdminLayout from '../components/AdminLayout';
+import ProjectForm from '../components/ProjectForm';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Plus, Edit, Trash2, Search, MapPin, Calendar } from 'lucide-react';
 import { Project } from '@/data/projects';
+import { toast } from 'sonner';
 
 export default function ProjectsManager() {
-  const { data, loading, deleteProject, exportData } = useCMSData();
+  const { data, loading, deleteProject, addProject, updateProject, exportData } = useCMSData();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
 
   if (loading) {
     return (
@@ -44,7 +48,31 @@ export default function ProjectsManager() {
   const handleDelete = (projectId: string) => {
     if (confirm('確定要刪除此工程實績？')) {
       deleteProject(projectId);
+      toast.success('工程實績已刪除');
     }
+  };
+
+  const handleCreate = () => {
+    setSelectedProject(null);
+    setFormMode('create');
+    setFormOpen(true);
+  };
+
+  const handleEdit = (project: Project) => {
+    setSelectedProject(project);
+    setFormMode('edit');
+    setFormOpen(true);
+  };
+
+  const handleSave = (project: Project) => {
+    if (formMode === 'create') {
+      addProject(project);
+      toast.success('工程實績已新增');
+    } else {
+      updateProject(project.id, project);
+      toast.success('工程實績已更新');
+    }
+    setFormOpen(false);
   };
 
   return (
@@ -56,7 +84,7 @@ export default function ProjectsManager() {
             <h2 className="text-3xl font-bold text-gray-900">工程實績管理</h2>
             <p className="text-gray-600 mt-1">管理所有工程案例與實績</p>
           </div>
-          <Button className="gap-2 bg-[#C4A052] hover:bg-[#B39048]">
+          <Button className="gap-2 bg-[#C4A052] hover:bg-[#B39048]" onClick={handleCreate}>
             <Plus className="w-4 h-4" />
             新增工程實績
           </Button>
@@ -169,7 +197,7 @@ export default function ProjectsManager() {
                       variant="outline"
                       size="sm"
                       className="gap-2"
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => handleEdit(project)}
                     >
                       <Edit className="w-4 h-4" />
                       編輯
@@ -202,31 +230,14 @@ export default function ProjectsManager() {
         )}
       </div>
 
-      {/* 編輯對話框（暫時用 alert，之後可以改用 modal） */}
-      {selectedProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <Card className="w-full max-w-2xl max-h-[80vh] overflow-y-auto">
-            <CardHeader>
-              <CardTitle>編輯工程實績</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 mb-4">
-                完整的編輯表單功能開發中...
-              </p>
-              <p className="text-sm text-gray-500">
-                目前可以透過匯出 JSON 檔案進行編輯，然後再匯入更新。
-              </p>
-              <Button
-                variant="outline"
-                className="mt-4"
-                onClick={() => setSelectedProject(null)}
-              >
-                關閉
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      {/* 編輯表單 */}
+      <ProjectForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        project={selectedProject}
+        onSave={handleSave}
+        mode={formMode}
+      />
     </AdminLayout>
   );
 }
