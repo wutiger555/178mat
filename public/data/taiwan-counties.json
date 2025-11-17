@@ -1,0 +1,325 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台北",
+        "name_en": "Taipei City",
+        "id": "taipei"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.456, 25.091],
+            [121.567, 25.091],
+            [121.567, 25.192],
+            [121.456, 25.192],
+            [121.456, 25.091]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "新北",
+        "name_en": "New Taipei City",
+        "id": "newtaipei"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.3, 24.8],
+            [121.8, 24.8],
+            [121.8, 25.3],
+            [121.3, 25.3],
+            [121.3, 24.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "桃園",
+        "name_en": "Taoyuan",
+        "id": "taoyuan"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.0, 24.7],
+            [121.5, 24.7],
+            [121.5, 25.1],
+            [121.0, 25.1],
+            [121.0, 24.7]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "新竹",
+        "name_en": "Hsinchu",
+        "id": "hsinchu"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.8, 24.5],
+            [121.2, 24.5],
+            [121.2, 24.9],
+            [120.8, 24.9],
+            [120.8, 24.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "苗栗",
+        "name_en": "Miaoli",
+        "id": "miaoli"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.6, 24.2],
+            [121.1, 24.2],
+            [121.1, 24.7],
+            [120.6, 24.7],
+            [120.6, 24.2]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台中",
+        "name_en": "Taichung",
+        "id": "taichung"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.5, 23.8],
+            [121.2, 23.8],
+            [121.2, 24.5],
+            [120.5, 24.5],
+            [120.5, 23.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "彰化",
+        "name_en": "Changhua",
+        "id": "changhua"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.4, 23.7],
+            [120.8, 23.7],
+            [120.8, 24.1],
+            [120.4, 24.1],
+            [120.4, 23.7]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "南投",
+        "name_en": "Nantou",
+        "id": "nantou"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.7, 23.6],
+            [121.2, 23.6],
+            [121.2, 24.2],
+            [120.7, 24.2],
+            [120.7, 23.6]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "雲林",
+        "name_en": "Yunlin",
+        "id": "yunlin"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.3, 23.5],
+            [120.7, 23.5],
+            [120.7, 23.9],
+            [120.3, 23.9],
+            [120.3, 23.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "嘉義",
+        "name_en": "Chiayi",
+        "id": "chiayi"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.3, 23.2],
+            [120.7, 23.2],
+            [120.7, 23.7],
+            [120.3, 23.7],
+            [120.3, 23.2]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台南",
+        "name_en": "Tainan",
+        "id": "tainan"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.0, 22.7],
+            [120.5, 22.7],
+            [120.5, 23.4],
+            [120.0, 23.4],
+            [120.0, 22.7]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "高雄",
+        "name_en": "Kaohsiung",
+        "id": "kaohsiung"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.2, 22.4],
+            [120.7, 22.4],
+            [120.7, 23.1],
+            [120.2, 23.1],
+            [120.2, 22.4]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "屏東",
+        "name_en": "Pingtung",
+        "id": "pingtung"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.4, 21.9],
+            [120.9, 21.9],
+            [120.9, 22.7],
+            [120.4, 22.7],
+            [120.4, 21.9]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "宜蘭",
+        "name_en": "Yilan",
+        "id": "yilan"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.6, 24.5],
+            [122.0, 24.5],
+            [122.0, 24.9],
+            [121.6, 24.9],
+            [121.6, 24.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "花蓮",
+        "name_en": "Hualien",
+        "id": "hualien"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [121.3, 23.5],
+            [121.7, 23.5],
+            [121.7, 24.4],
+            [121.3, 24.4],
+            [121.3, 23.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "台東",
+        "name_en": "Taitung",
+        "id": "taitung"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120.9, 22.4],
+            [121.4, 22.4],
+            [121.4, 23.5],
+            [120.9, 23.5],
+            [120.9, 22.4]
+          ]
+        ]
+      }
+    }
+  ]
+}
