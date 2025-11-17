@@ -13,6 +13,7 @@ import {
   Download,
   Upload,
   RotateCcw,
+  MapPin,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -36,7 +37,7 @@ export default function AdminLayout({
     { path: '/admin/projects', label: '工程實績', icon: FolderOpen },
     { path: '/admin/products', label: '產品管理', icon: Package },
     { path: '/admin/media', label: '媒體庫', icon: Image },
-    { path: '/admin/settings', label: '設定', icon: Settings },
+    { path: '/admin/map', label: '地圖管理', icon: MapPin },
   ];
 
   return (

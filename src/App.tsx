@@ -19,6 +19,8 @@ import Showcase3D from "./pages/Showcase3D";
 import Dashboard from "./admin/pages/Dashboard";
 import ProjectsManager from "./admin/pages/ProjectsManager";
 import ProductsManager from "./admin/pages/ProductsManager";
+import MediaManager from "./admin/pages/MediaManager";
+import MapManager from "./admin/pages/MapManager";
 
 // 配置 GitHub Pages base path
 const basePath = import.meta.env.BASE_URL.slice(0, -1) || "";
@@ -57,6 +59,8 @@ function Router() {
               <Route path="/admin" component={Dashboard} />
               <Route path="/admin/projects" component={ProjectsManager} />
               <Route path="/admin/products" component={ProductsManager} />
+              <Route path="/admin/media" component={MediaManager} />
+              <Route path="/admin/map" component={MapManager} />
             </>
           )}
 
