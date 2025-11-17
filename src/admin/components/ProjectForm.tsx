@@ -18,6 +18,8 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { tagOptions } from '@/data/cms-config';
+import ImagePicker from './ImagePicker';
+import { Image as ImageIcon } from 'lucide-react';
 
 interface ProjectFormProps {
   open: boolean;
@@ -57,6 +59,7 @@ export default function ProjectForm({
   });
 
   const [imageInput, setImageInput] = useState('');
+  const [imagePickerOpen, setImagePickerOpen] = useState(false);
 
   useEffect(() => {
     if (project) {
@@ -135,6 +138,13 @@ export default function ProjectForm({
     setFormData({
       ...formData,
       images: formData.images.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleImageSelect = (imagePath: string) => {
+    setFormData({
+      ...formData,
+      images: [...formData.images, imagePath],
     });
   };
 
@@ -277,6 +287,15 @@ export default function ProjectForm({
                 />
                 <Button type="button" onClick={handleAddImage} variant="outline">
                   新增
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => setImagePickerOpen(true)}
+                  variant="outline"
+                  className="gap-2"
+                >
+                  <ImageIcon className="w-4 h-4" />
+                  選擇圖片
                 </Button>
               </div>
 
@@ -469,6 +488,13 @@ export default function ProjectForm({
           </DialogFooter>
         </form>
       </DialogContent>
+
+      {/* 圖片選擇器 */}
+      <ImagePicker
+        open={imagePickerOpen}
+        onOpenChange={setImagePickerOpen}
+        onSelect={handleImageSelect}
+      />
     </Dialog>
   );
 }

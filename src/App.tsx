@@ -23,6 +23,9 @@ import ProductsManager from "./admin/pages/ProductsManager";
 // 配置 GitHub Pages base path
 const basePath = import.meta.env.BASE_URL.slice(0, -1) || "";
 
+// 檢查是否為開發模式（管理後台只在開發模式下可用）
+const isDevelopment = import.meta.env.DEV;
+
 // 自定義 Hook: 路由切換時滾動到頂部
 function useScrollToTop() {
   const [location] = useLocation();
@@ -48,10 +51,14 @@ function Router() {
       {!isAdminRoute && <Navbar />}
       <main className={!isAdminRoute ? "pt-20" : ""}>
         <Switch>
-          {/* 管理後台路由 */}
-          <Route path="/admin" component={Dashboard} />
-          <Route path="/admin/projects" component={ProjectsManager} />
-          <Route path="/admin/products" component={ProductsManager} />
+          {/* 管理後台路由 - 只在開發模式下可用 */}
+          {isDevelopment && (
+            <>
+              <Route path="/admin" component={Dashboard} />
+              <Route path="/admin/projects" component={ProjectsManager} />
+              <Route path="/admin/products" component={ProductsManager} />
+            </>
+          )}
 
           {/* 一般網站路由 */}
           <Route path="/" component={Home} />
