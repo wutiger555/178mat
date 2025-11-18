@@ -91,20 +91,16 @@ export default function Tutorial() {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6 space-y-4">
-            <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-6">
-              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-600" />
-                登入資訊（請記住）
+            <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-6">
+              <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-blue-600" />
+                登入資訊
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                  <p className="text-sm text-gray-600 mb-1">帳號</p>
-                  <code className="text-lg font-mono font-bold text-blue-600">178mat</code>
-                </div>
-                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                  <p className="text-sm text-gray-600 mb-1">密碼</p>
-                  <code className="text-lg font-mono font-bold text-blue-600">178mat</code>
-                </div>
+              <div className="bg-white p-4 rounded-lg border border-blue-200">
+                <p className="text-sm text-blue-900">
+                  🔑 請向技術人員索取管理後台的登入帳號和密碼。<br/>
+                  帳號密碼會另外提供給您，請妥善保管。
+                </p>
               </div>
             </div>
 
@@ -113,8 +109,8 @@ export default function Tutorial() {
               <ol className="list-decimal list-inside space-y-2 text-gray-700 ml-4">
                 <li>開啟瀏覽器（建議使用 Chrome 或 Edge）</li>
                 <li>在網址列輸入：<code className="bg-gray-100 px-2 py-1 rounded">http://localhost:3000/178mat/admin/login</code></li>
-                <li>在「帳號」欄位輸入：<strong>178mat</strong></li>
-                <li>在「密碼」欄位輸入：<strong>178mat</strong></li>
+                <li>在「帳號」欄位輸入技術人員提供的帳號</li>
+                <li>在「密碼」欄位輸入技術人員提供的密碼</li>
                 <li>點擊「登入」按鈕</li>
                 <li>看到儀表板就代表登入成功了！🎉</li>
               </ol>

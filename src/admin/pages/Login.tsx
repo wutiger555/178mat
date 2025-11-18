@@ -143,24 +143,14 @@ export default function Login() {
           </form>
 
           {/* 提示資訊 */}
-          <div className="mt-8 space-y-3">
+          <div className="mt-8">
             <div className="border-t pt-6">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-900 font-medium mb-2">
-                  💡 預設登入資訊
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <p className="text-xs text-gray-600 text-center">
+                  <span className="font-semibold">🔒 安全提示：</span>
+                  此為管理後台登入頁面，請使用授權帳號登入。
                 </p>
-                <div className="text-xs text-blue-800 space-y-1">
-                  <p>• 帳號：<code className="bg-blue-100 px-2 py-1 rounded">178mat</code></p>
-                  <p>• 密碼：<code className="bg-blue-100 px-2 py-1 rounded">178mat</code></p>
-                </div>
               </div>
-            </div>
-
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-              <p className="text-xs text-yellow-900">
-                <span className="font-semibold">⚠️ 安全提示：</span>
-                管理後台僅在開發環境可用，正式網站不會顯示此頁面。
-              </p>
             </div>
           </div>
         </CardContent>
