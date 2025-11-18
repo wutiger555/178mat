@@ -14,8 +14,12 @@ import {
   Upload,
   RotateCcw,
   MapPin,
+  BookOpen,
+  LogOut,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { logout } from '../pages/Login';
+import { toast } from 'sonner';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -30,7 +34,7 @@ export default function AdminLayout({
   onImport,
   onReset
 }: AdminLayoutProps) {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
 
   const navItems = [
     { path: '/admin', label: '儀表板', icon: LayoutDashboard },
@@ -39,7 +43,16 @@ export default function AdminLayout({
     { path: '/admin/media', label: '媒體庫', icon: Image },
     { path: '/admin/map', label: '地圖管理', icon: MapPin },
     { path: '/admin/settings', label: '網站設定', icon: Settings },
+    { path: '/admin/tutorial', label: '使用教學', icon: BookOpen },
   ];
+
+  const handleLogout = () => {
+    if (confirm('確定要登出嗎？')) {
+      logout();
+      toast.success('已登出');
+      setLocation('/admin/login');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -58,6 +71,12 @@ export default function AdminLayout({
             </div>
 
             <div className="flex items-center gap-2">
+              <Link href="/admin/tutorial">
+                <Button variant="outline" size="sm" className="gap-2 bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200">
+                  <BookOpen className="w-4 h-4" />
+                  使用教學
+                </Button>
+              </Link>
               {onExport && (
                 <Button variant="outline" size="sm" onClick={onExport} className="gap-2">
                   <Download className="w-4 h-4" />
@@ -81,6 +100,15 @@ export default function AdminLayout({
                   重置
                 </Button>
               )}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="gap-2 text-gray-700 hover:text-red-600 hover:bg-red-50 hover:border-red-200"
+              >
+                <LogOut className="w-4 h-4" />
+                登出
+              </Button>
             </div>
           </div>
         </div>

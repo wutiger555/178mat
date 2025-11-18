@@ -22,6 +22,9 @@ import ProductsManager from "./admin/pages/ProductsManager";
 import MediaManager from "./admin/pages/MediaManager";
 import MapManager from "./admin/pages/MapManager";
 import SettingsManager from "./admin/pages/SettingsManager";
+import Login from "./admin/pages/Login";
+import Tutorial from "./admin/pages/Tutorial";
+import ProtectedRoute from "./admin/components/ProtectedRoute";
 
 // 配置 GitHub Pages base path
 const basePath = import.meta.env.BASE_URL.slice(0, -1) || "";
@@ -57,12 +60,56 @@ function Router() {
           {/* 管理後台路由 - 只在開發模式下可用 */}
           {isDevelopment && (
             <>
-              <Route path="/admin" component={Dashboard} />
-              <Route path="/admin/projects" component={ProjectsManager} />
-              <Route path="/admin/products" component={ProductsManager} />
-              <Route path="/admin/media" component={MediaManager} />
-              <Route path="/admin/map" component={MapManager} />
-              <Route path="/admin/settings" component={SettingsManager} />
+              <Route path="/admin/login" component={Login} />
+              <Route path="/admin">
+                {() => (
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/projects">
+                {() => (
+                  <ProtectedRoute>
+                    <ProjectsManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/products">
+                {() => (
+                  <ProtectedRoute>
+                    <ProductsManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/media">
+                {() => (
+                  <ProtectedRoute>
+                    <MediaManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/map">
+                {() => (
+                  <ProtectedRoute>
+                    <MapManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/settings">
+                {() => (
+                  <ProtectedRoute>
+                    <SettingsManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/tutorial">
+                {() => (
+                  <ProtectedRoute>
+                    <Tutorial />
+                  </ProtectedRoute>
+                )}
+              </Route>
             </>
           )}
 
