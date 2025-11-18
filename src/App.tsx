@@ -15,9 +15,22 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import Showcase3D from "./pages/Showcase3D";
+// 管理後台
+import Dashboard from "./admin/pages/Dashboard";
+import ProjectsManager from "./admin/pages/ProjectsManager";
+import ProductsManager from "./admin/pages/ProductsManager";
+import MediaManager from "./admin/pages/MediaManager";
+import MapManager from "./admin/pages/MapManager";
+import SettingsManager from "./admin/pages/SettingsManager";
+import Login from "./admin/pages/Login";
+import Tutorial from "./admin/pages/Tutorial";
+import ProtectedRoute from "./admin/components/ProtectedRoute";
 
 // 配置 GitHub Pages base path
 const basePath = import.meta.env.BASE_URL.slice(0, -1) || "";
+
+// 檢查是否為開發模式（管理後台只在開發模式下可用）
+const isDevelopment = import.meta.env.DEV;
 
 // 自定義 Hook: 路由切換時滾動到頂部
 function useScrollToTop() {
@@ -35,12 +48,72 @@ function ScrollToTop() {
 }
 
 function Router() {
+  const [location] = useLocation();
+  const isAdminRoute = location.startsWith('/admin');
+
   return (
     <WouterRouter base={basePath}>
       <ScrollToTop />
-      <Navbar />
-      <main className="pt-20">
+      {!isAdminRoute && <Navbar />}
+      <main className={!isAdminRoute ? "pt-20" : ""}>
         <Switch>
+          {/* 管理後台路由 - 只在開發模式下可用 */}
+          {isDevelopment && (
+            <>
+              <Route path="/admin/login" component={Login} />
+              <Route path="/admin">
+                {() => (
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/projects">
+                {() => (
+                  <ProtectedRoute>
+                    <ProjectsManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/products">
+                {() => (
+                  <ProtectedRoute>
+                    <ProductsManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/media">
+                {() => (
+                  <ProtectedRoute>
+                    <MediaManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/map">
+                {() => (
+                  <ProtectedRoute>
+                    <MapManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/settings">
+                {() => (
+                  <ProtectedRoute>
+                    <SettingsManager />
+                  </ProtectedRoute>
+                )}
+              </Route>
+              <Route path="/admin/tutorial">
+                {() => (
+                  <ProtectedRoute>
+                    <Tutorial />
+                  </ProtectedRoute>
+                )}
+              </Route>
+            </>
+          )}
+
+          {/* 一般網站路由 */}
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/services" component={Services} />
@@ -54,7 +127,7 @@ function Router() {
           <Route component={NotFound} />
         </Switch>
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </WouterRouter>
   );
 }

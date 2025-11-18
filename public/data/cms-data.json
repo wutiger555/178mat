@@ -1,0 +1,24 @@
+{
+  "projects": [],
+  "products": [],
+  "youtubeVideos": [],
+  "mapLocations": [
+    { "id": "taipei", "name": "台北", "x": 55, "y": 15, "count": 150 },
+    { "id": "newtaipei", "name": "新北", "x": 57, "y": 18, "count": 130 },
+    { "id": "taoyuan", "name": "桃園", "x": 52, "y": 22, "count": 80 },
+    { "id": "hsinchu", "name": "新竹", "x": 50, "y": 28, "count": 60 },
+    { "id": "miaoli", "name": "苗栗", "x": 48, "y": 35, "count": 35 },
+    { "id": "taichung", "name": "台中", "x": 48, "y": 42, "count": 120 },
+    { "id": "changhua", "name": "彰化", "x": 47, "y": 50, "count": 45 },
+    { "id": "nantou", "name": "南投", "x": 50, "y": 48, "count": 30 },
+    { "id": "yunlin", "name": "雲林", "x": 46, "y": 57, "count": 25 },
+    { "id": "chiayi", "name": "嘉義", "x": 47, "y": 62, "count": 40 },
+    { "id": "tainan", "name": "台南", "x": 45, "y": 65, "count": 90 },
+    { "id": "kaohsiung", "name": "高雄", "x": 48, "y": 75, "count": 110 },
+    { "id": "pingtung", "name": "屏東", "x": 47, "y": 85, "count": 40 },
+    { "id": "yilan", "name": "宜蘭", "x": 60, "y": 22, "count": 20 },
+    { "id": "hualien", "name": "花蓮", "x": 58, "y": 50, "count": 15 },
+    { "id": "taitung", "name": "台東", "x": 55, "y": 75, "count": 12 }
+  ],
+  "lastUpdated": "2024-01-01T00:00:00.000Z"
+}

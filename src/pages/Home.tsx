@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import TaiwanMapStats from "@/components/TaiwanMapStats";
 import TaiwanMapVisualization from "@/components/TaiwanMapVisualization";
-import TaiwanMapChoropleth from "@/components/TaiwanMapChoropleth";
+import TaiwanMapRealistic from "@/components/TaiwanMapRealistic";
 import Logo from "@/components/Logo";
 import SEO from "@/components/SEO";
 import { getImagePath } from '@/utils/paths';
@@ -553,7 +553,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <TaiwanMapChoropleth />
+          <TaiwanMapRealistic />
         </div>
       </section>
 

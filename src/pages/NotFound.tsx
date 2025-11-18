@@ -11,10 +11,11 @@ export default function NotFound() {
         <p className="text-gray-600 mb-8">
           抱歉，您要訪問的頁面不存在。
         </p>
-        <Link href="/">
-          <a className="inline-block bg-brand-red text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition">
-            返回首頁
-          </a>
+        <Link
+          href="/"
+          className="inline-block bg-brand-red text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition"
+        >
+          返回首頁
         </Link>
       </div>
     </div>
